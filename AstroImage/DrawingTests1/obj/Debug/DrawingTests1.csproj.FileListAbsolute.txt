@@ -1,0 +1,10 @@
+C:\testDev\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.exe.config
+C:\testDev\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.exe
+C:\testDev\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.pdb
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csprojAssemblyReference.cache
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.Form1.resources
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.Properties.Resources.resources
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.GenerateResource.cache
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.CoreCompileInputs.cache
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.exe
+C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.pdb

@@ -1,0 +1,10 @@
+C:\testDev\AstroImage\AstroImage\bin\Debug\AstroImage.exe.config
+C:\testDev\AstroImage\AstroImage\bin\Debug\AstroImage.exe
+C:\testDev\AstroImage\AstroImage\bin\Debug\AstroImage.pdb
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.csprojAssemblyReference.cache
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.Form1.resources
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.Properties.Resources.resources
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.GenerateResource.cache
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.CoreCompileInputs.cache
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.exe
+C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.pdb

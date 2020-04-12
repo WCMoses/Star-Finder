@@ -1,0 +1,9 @@
+C:\testDev\AstroImage\Architecture Diagrams\bin\Debug\Architecture Diagrams.exe.config
+C:\testDev\AstroImage\Architecture Diagrams\bin\Debug\Architecture Diagrams.exe
+C:\testDev\AstroImage\Architecture Diagrams\bin\Debug\Architecture Diagrams.pdb
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture Diagrams.csprojAssemblyReference.cache
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture_Diagrams.Properties.Resources.resources
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture Diagrams.csproj.GenerateResource.cache
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture Diagrams.csproj.CoreCompileInputs.cache
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture Diagrams.exe
+C:\testDev\AstroImage\Architecture Diagrams\obj\Debug\Architecture Diagrams.pdb
