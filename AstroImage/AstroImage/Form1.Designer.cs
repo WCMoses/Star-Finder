@@ -30,6 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.cmdHighlightBrs = new System.Windows.Forms.Button();
             this.txtOuputDir = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdSaveData = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.cmdHighlightBrs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,6 +105,17 @@
             this.splitContainer2.Size = new System.Drawing.Size(1872, 820);
             this.splitContainer2.SplitterDistance = 1035;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // cmdHighlightBrs
+            // 
+            this.cmdHighlightBrs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdHighlightBrs.Location = new System.Drawing.Point(28, 604);
+            this.cmdHighlightBrs.Name = "cmdHighlightBrs";
+            this.cmdHighlightBrs.Size = new System.Drawing.Size(963, 96);
+            this.cmdHighlightBrs.TabIndex = 13;
+            this.cmdHighlightBrs.Text = "Highligh BRs";
+            this.cmdHighlightBrs.UseVisualStyleBackColor = true;
+            this.cmdHighlightBrs.Click += new System.EventHandler(this.cmdHighlightBrs_Click);
             // 
             // txtOuputDir
             // 
@@ -225,7 +236,7 @@
             this.txtSourceFile.Name = "txtSourceFile";
             this.txtSourceFile.Size = new System.Drawing.Size(962, 53);
             this.txtSourceFile.TabIndex = 1;
-            this.txtSourceFile.Text = "c:\\Testimages\\SmallTestImage1.bmp";
+            this.txtSourceFile.Text = "c:\\Testimages\\2Stars-1.bmp";
             // 
             // label1
             // 
@@ -256,17 +267,6 @@
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(1872, 491);
             this.txtOutput.TabIndex = 0;
-            // 
-            // cmdHighlightBrs
-            // 
-            this.cmdHighlightBrs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdHighlightBrs.Location = new System.Drawing.Point(28, 604);
-            this.cmdHighlightBrs.Name = "cmdHighlightBrs";
-            this.cmdHighlightBrs.Size = new System.Drawing.Size(963, 96);
-            this.cmdHighlightBrs.TabIndex = 13;
-            this.cmdHighlightBrs.Text = "Highligh BRs";
-            this.cmdHighlightBrs.UseVisualStyleBackColor = true;
-            this.cmdHighlightBrs.Click += new System.EventHandler(this.cmdHighlightBrs_Click);
             // 
             // Form1
             // 

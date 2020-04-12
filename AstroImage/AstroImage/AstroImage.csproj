@@ -83,6 +83,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestImages\1Star-1.bmp" />
+    <Content Include="TestImages\2Stars-1.bmp" />
+    <Content Include="TestImages\LargeTestImage1.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

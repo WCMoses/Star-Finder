@@ -8,3 +8,13 @@ C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.GenerateResource.ca
 C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.CoreCompileInputs.cache
 C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.exe
 C:\testDev\AstroImage\AstroImage\obj\Debug\AstroImage.pdb
+C:\Repos\Star-Finder\AstroImage\AstroImage\bin\Debug\AstroImage.exe.config
+C:\Repos\Star-Finder\AstroImage\AstroImage\bin\Debug\AstroImage.exe
+C:\Repos\Star-Finder\AstroImage\AstroImage\bin\Debug\AstroImage.pdb
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.csprojAssemblyReference.cache
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.Form1.resources
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.Properties.Resources.resources
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.GenerateResource.cache
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.csproj.CoreCompileInputs.cache
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.exe
+C:\Repos\Star-Finder\AstroImage\AstroImage\obj\Debug\AstroImage.pdb

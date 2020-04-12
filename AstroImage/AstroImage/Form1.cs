@@ -75,27 +75,28 @@ namespace AstroImage
             {
                 for (int x = 0; x < xmax; x++)
                 {
-                    //Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
+                    Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
                     if (result.ContainsPoint(x, y)) //Is point already in a blob
                     {
-                        //Console.WriteLine("Already in BR");
+                        Console.WriteLine("--Already in BR");
                         continue;  //point is already in a bounding rect
                     }
                     if (arr[x, y] >= Threshold)  // Edge found
                     {
-                        //Console.WriteLine("Edge found");
+                        Console.WriteLine("--Edge found");
                         Tuple<int, int, int> bar = GetBottomBoundingBar(arr, x, y, Threshold);
                         int xMin = bar.Item1;
                         int xMax = bar.Item2;
                         int yMax = bar.Item3;
                         int yMin = y;
+                        Console.WriteLine("--->BR found at [" + xMin + "," + yMin +"],["+xmax+","+ymax+"]");
                         BoundingRect rect = new BoundingRect(xMin, yMin, xMax, yMax);
                         result.BrList.Add(rect);
 
                     }
                     else  //Edge not detected
                     {
-                        //Console.WriteLine("No Edge");
+                        Console.WriteLine("--No Edge");
                     }
                 }
 
@@ -140,11 +141,11 @@ namespace AstroImage
             int maxXarr = arr.GetUpperBound(0) + 1;
             int maxYarr = arr.GetUpperBound(1) + 1;
 
-            if (x == maxXarr)     //at edge of image
+            if (x == maxXarr-1)     //at edge of image
             {
                 return false;
             }
-            //Console.WriteLine("   VTR: " + (x + 1) + "," + y + "--" + arr[x + 1, y]);
+            Console.WriteLine("   VTR: " + (x + 1) + "," + y + "--" + arr[x + 1, y]);
             if (arr[x + 1, y] > threshold)
             {
                 return true;
@@ -158,7 +159,7 @@ namespace AstroImage
             {
                 return false;
             }
-            //Console.WriteLine("   VTL: " + (x - 1) + "," + y + "--" + arr[x - 1, y]);
+            Console.WriteLine("   VTL: " + (x - 1) + "," + y + "--" + arr[x - 1, y]);
             if (arr[x - 1, y] > threshold)
             {
                 return true;
@@ -177,7 +178,7 @@ namespace AstroImage
 
             for (int i = startX; i < endX; i++)
             {
-                //Console.WriteLine("   EVB: " + i + "," + (y + 1) + "  -  " + arr[i, y + 1]);
+                Console.WriteLine("   EVB: " + i + "," + (y + 1) + "  -  " + arr[i, y + 1]);
                 if (arr[i, y + 1] > threshold)
                 {
                     return false;
@@ -275,7 +276,7 @@ namespace AstroImage
             count = 0;
             foreach (var item in BoundingRects.BrList)
             {
-                string fileName = fullPath + "BR-" + count + ".csv";
+                string fileName = path + "\\BR-" + count + ".csv";
                 SaveSubFrame(fileName, item);
                 count++;
             }
