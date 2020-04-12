@@ -196,7 +196,7 @@ namespace AstroImage
                 for (int x = 0; x < w; x++)  // (int y = 0; y < h; y++)
                 {
                     Color pixel = img.GetPixel(x, y);
-                   // Console.WriteLine("R:" + pixel.R + " G:" + pixel.G + " B:" + pixel.B);
+                    // Console.WriteLine("R:" + pixel.R + " G:" + pixel.G + " B:" + pixel.B);
                     result[x, y] = GetPixelValue(pixel);
                 }
             }
@@ -240,7 +240,7 @@ namespace AstroImage
             foreach (var item in brList.BrList)
             {
                 string msg = count + "  ";
-                 msg += "Found BR at [" + item.UpperLeftX + "," + item.UpperLeftY + "],[" + item.BottomRightX + "," + item.BottomRightY + "]";
+                msg += "Found BR at [" + item.UpperLeftX + "," + item.UpperLeftY + "],[" + item.BottomRightX + "," + item.BottomRightY + "]";
                 txtOutput.Text += msg + Environment.NewLine;
                 count++;
             }
@@ -305,6 +305,28 @@ namespace AstroImage
                 }
                 writer.Flush();
             }
+        }
+
+        private void cmdHighlightBrs_Click(object sender, EventArgs e)
+        {
+            Rectangle rect1 = new Rectangle();
+            Graphics gr = Graphics.FromImage(pbImage.Image);
+            Pen pen = new Pen(Color.Red, 1);
+            int x;
+            int y;
+            int h;
+            int w;
+
+            foreach (var item in BoundingRects.BrList)
+            {
+                x = item.UpperLeftX;
+                y = item.UpperLeftY;
+                h = item.BottomRightY - item.UpperLeftY;
+                w = item.BottomRightX - item.UpperLeftX;
+                rect1 = new Rectangle(x, y, w, h);
+                gr.DrawRectangle(pen, rect1);
+            }
+            pbImage.Invalidate();
         }
     }
 
