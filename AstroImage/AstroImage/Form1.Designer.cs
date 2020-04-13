@@ -29,7 +29,12 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.txtMinSize = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmdSourceFilePicker = new System.Windows.Forms.Button();
             this.cmdHighlightBrs = new System.Windows.Forms.Button();
             this.txtOuputDir = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,16 +50,26 @@
             this.txtSourceFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pbImage = new System.Windows.Forms.PictureBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbRelativeBrightness = new System.Windows.Forms.RadioButton();
+            this.rbAbsoluteBrightness = new System.Windows.Forms.RadioButton();
+            this.rbSize = new System.Windows.Forms.RadioButton();
             this.txtOutput = new System.Windows.Forms.TextBox();
+            this.cmdSaveCsv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -66,24 +81,51 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.txtOutput);
             this.splitContainer1.Size = new System.Drawing.Size(1872, 1315);
             this.splitContainer1.SplitterDistance = 820;
+            this.splitContainer1.SplitterWidth = 15;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1872, 820);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.splitContainer2);
+            this.tabPage1.Location = new System.Drawing.Point(12, 58);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1848, 750);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Operations";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.cmdSaveCsv);
+            this.splitContainer2.Panel1.Controls.Add(this.txtMinSize);
+            this.splitContainer2.Panel1.Controls.Add(this.label4);
+            this.splitContainer2.Panel1.Controls.Add(this.cmdSourceFilePicker);
             this.splitContainer2.Panel1.Controls.Add(this.cmdHighlightBrs);
             this.splitContainer2.Panel1.Controls.Add(this.txtOuputDir);
             this.splitContainer2.Panel1.Controls.Add(this.label3);
@@ -102,14 +144,44 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.pbImage);
-            this.splitContainer2.Size = new System.Drawing.Size(1872, 820);
-            this.splitContainer2.SplitterDistance = 1035;
+            this.splitContainer2.Size = new System.Drawing.Size(1842, 744);
+            this.splitContainer2.SplitterDistance = 1451;
+            this.splitContainer2.SplitterWidth = 15;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // txtMinSize
+            // 
+            this.txtMinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMinSize.Location = new System.Drawing.Point(867, 269);
+            this.txtMinSize.Name = "txtMinSize";
+            this.txtMinSize.Size = new System.Drawing.Size(100, 53);
+            this.txtMinSize.TabIndex = 17;
+            this.txtMinSize.Text = "2";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(656, 272);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(173, 46);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Min Size";
+            // 
+            // cmdSourceFilePicker
+            // 
+            this.cmdSourceFilePicker.Location = new System.Drawing.Point(827, 121);
+            this.cmdSourceFilePicker.Name = "cmdSourceFilePicker";
+            this.cmdSourceFilePicker.Size = new System.Drawing.Size(140, 53);
+            this.cmdSourceFilePicker.TabIndex = 14;
+            this.cmdSourceFilePicker.Text = "...";
+            this.cmdSourceFilePicker.UseVisualStyleBackColor = true;
+            this.cmdSourceFilePicker.Click += new System.EventHandler(this.cmdSourceFilePicker_Click);
             // 
             // cmdHighlightBrs
             // 
             this.cmdHighlightBrs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdHighlightBrs.Location = new System.Drawing.Point(28, 604);
+            this.cmdHighlightBrs.Location = new System.Drawing.Point(17, 641);
             this.cmdHighlightBrs.Name = "cmdHighlightBrs";
             this.cmdHighlightBrs.Size = new System.Drawing.Size(963, 96);
             this.cmdHighlightBrs.TabIndex = 13;
@@ -120,7 +192,7 @@
             // txtOuputDir
             // 
             this.txtOuputDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOuputDir.Location = new System.Drawing.Point(330, 222);
+            this.txtOuputDir.Location = new System.Drawing.Point(330, 190);
             this.txtOuputDir.Name = "txtOuputDir";
             this.txtOuputDir.Size = new System.Drawing.Size(637, 53);
             this.txtOuputDir.TabIndex = 12;
@@ -130,7 +202,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(11, 220);
+            this.label3.Location = new System.Drawing.Point(9, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(300, 46);
             this.label3.TabIndex = 11;
@@ -139,7 +211,7 @@
             // cmdSaveData
             // 
             this.cmdSaveData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSaveData.Location = new System.Drawing.Point(376, 479);
+            this.cmdSaveData.Location = new System.Drawing.Point(372, 529);
             this.cmdSaveData.Name = "cmdSaveData";
             this.cmdSaveData.Size = new System.Drawing.Size(326, 92);
             this.cmdSaveData.TabIndex = 10;
@@ -151,18 +223,18 @@
             // 
             this.lblElapsedTime.AutoSize = true;
             this.lblElapsedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblElapsedTime.Location = new System.Drawing.Point(337, 430);
+            this.lblElapsedTime.Location = new System.Drawing.Point(373, 457);
             this.lblElapsedTime.Name = "lblElapsedTime";
-            this.lblElapsedTime.Size = new System.Drawing.Size(393, 46);
+            this.lblElapsedTime.Size = new System.Drawing.Size(238, 46);
             this.lblElapsedTime.TabIndex = 9;
-            this.lblElapsedTime.Text = "Elapsed Time: 00 ms";
+            this.lblElapsedTime.Text = "Time: 00 ms";
             // 
             // cmdClear
             // 
             this.cmdClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdClear.Location = new System.Drawing.Point(759, 429);
+            this.cmdClear.Location = new System.Drawing.Point(730, 479);
             this.cmdClear.Name = "cmdClear";
-            this.cmdClear.Size = new System.Drawing.Size(232, 142);
+            this.cmdClear.Size = new System.Drawing.Size(250, 142);
             this.cmdClear.TabIndex = 8;
             this.cmdClear.Text = "Clear";
             this.cmdClear.UseVisualStyleBackColor = true;
@@ -171,9 +243,9 @@
             // txtEdgeThreshold
             // 
             this.txtEdgeThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEdgeThreshold.Location = new System.Drawing.Point(330, 134);
+            this.txtEdgeThreshold.Location = new System.Drawing.Point(316, 269);
             this.txtEdgeThreshold.Name = "txtEdgeThreshold";
-            this.txtEdgeThreshold.Size = new System.Drawing.Size(163, 53);
+            this.txtEdgeThreshold.Size = new System.Drawing.Size(70, 53);
             this.txtEdgeThreshold.TabIndex = 7;
             this.txtEdgeThreshold.Text = "25";
             // 
@@ -181,7 +253,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 141);
+            this.label2.Location = new System.Drawing.Point(9, 272);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(301, 46);
             this.label2.TabIndex = 6;
@@ -191,7 +263,7 @@
             // 
             this.lblWidth.AutoSize = true;
             this.lblWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWidth.Location = new System.Drawing.Point(624, 353);
+            this.lblWidth.Location = new System.Drawing.Point(373, 398);
             this.lblWidth.Name = "lblWidth";
             this.lblWidth.Size = new System.Drawing.Size(214, 46);
             this.lblWidth.TabIndex = 5;
@@ -201,7 +273,7 @@
             // 
             this.lblHeight.AutoSize = true;
             this.lblHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeight.Location = new System.Drawing.Point(312, 353);
+            this.lblHeight.Location = new System.Drawing.Point(373, 338);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(227, 46);
             this.lblHeight.TabIndex = 4;
@@ -210,7 +282,7 @@
             // cmdIterate
             // 
             this.cmdIterate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdIterate.Location = new System.Drawing.Point(17, 429);
+            this.cmdIterate.Location = new System.Drawing.Point(12, 479);
             this.cmdIterate.Name = "cmdIterate";
             this.cmdIterate.Size = new System.Drawing.Size(314, 142);
             this.cmdIterate.TabIndex = 3;
@@ -221,7 +293,7 @@
             // cmdShowImage
             // 
             this.cmdShowImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdShowImage.Location = new System.Drawing.Point(17, 317);
+            this.cmdShowImage.Location = new System.Drawing.Point(17, 371);
             this.cmdShowImage.Name = "cmdShowImage";
             this.cmdShowImage.Size = new System.Drawing.Size(279, 73);
             this.cmdShowImage.TabIndex = 2;
@@ -253,10 +325,66 @@
             this.pbImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbImage.Location = new System.Drawing.Point(0, 0);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(829, 816);
+            this.pbImage.Size = new System.Drawing.Size(372, 740);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 0;
             this.pbImage.TabStop = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(12, 58);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1848, 750);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Settings";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbRelativeBrightness);
+            this.groupBox1.Controls.Add(this.rbAbsoluteBrightness);
+            this.groupBox1.Controls.Add(this.rbSize);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(52, 50);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(475, 614);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sort BRs By";
+            // 
+            // rbRelativeBrightness
+            // 
+            this.rbRelativeBrightness.AutoSize = true;
+            this.rbRelativeBrightness.Location = new System.Drawing.Point(18, 204);
+            this.rbRelativeBrightness.Name = "rbRelativeBrightness";
+            this.rbRelativeBrightness.Size = new System.Drawing.Size(406, 50);
+            this.rbRelativeBrightness.TabIndex = 2;
+            this.rbRelativeBrightness.Text = "Relative Brightness";
+            this.rbRelativeBrightness.UseVisualStyleBackColor = true;
+            // 
+            // rbAbsoluteBrightness
+            // 
+            this.rbAbsoluteBrightness.AutoSize = true;
+            this.rbAbsoluteBrightness.Location = new System.Drawing.Point(18, 129);
+            this.rbAbsoluteBrightness.Name = "rbAbsoluteBrightness";
+            this.rbAbsoluteBrightness.Size = new System.Drawing.Size(419, 50);
+            this.rbAbsoluteBrightness.TabIndex = 1;
+            this.rbAbsoluteBrightness.Text = "Absolute Brightness";
+            this.rbAbsoluteBrightness.UseVisualStyleBackColor = true;
+            // 
+            // rbSize
+            // 
+            this.rbSize.AutoSize = true;
+            this.rbSize.Checked = true;
+            this.rbSize.Location = new System.Drawing.Point(18, 53);
+            this.rbSize.Name = "rbSize";
+            this.rbSize.Size = new System.Drawing.Size(142, 50);
+            this.rbSize.TabIndex = 0;
+            this.rbSize.TabStop = true;
+            this.rbSize.Text = "Size";
+            this.rbSize.UseVisualStyleBackColor = true;
             // 
             // txtOutput
             // 
@@ -265,8 +393,19 @@
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(1872, 491);
+            this.txtOutput.Size = new System.Drawing.Size(1872, 480);
             this.txtOutput.TabIndex = 0;
+            // 
+            // cmdSaveCsv
+            // 
+            this.cmdSaveCsv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSaveCsv.Location = new System.Drawing.Point(745, 355);
+            this.cmdSaveCsv.Name = "cmdSaveCsv";
+            this.cmdSaveCsv.Size = new System.Drawing.Size(229, 89);
+            this.cmdSaveCsv.TabIndex = 18;
+            this.cmdSaveCsv.Text = "Save CSV";
+            this.cmdSaveCsv.UseVisualStyleBackColor = true;
+            this.cmdSaveCsv.Click += new System.EventHandler(this.cmdSaveCsv_Click);
             // 
             // Form1
             // 
@@ -276,17 +415,24 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.ActiveForm_ResizeEnd);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -311,6 +457,17 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button cmdSaveData;
         private System.Windows.Forms.Button cmdHighlightBrs;
+        private System.Windows.Forms.TextBox txtMinSize;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button cmdSourceFilePicker;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbRelativeBrightness;
+        private System.Windows.Forms.RadioButton rbAbsoluteBrightness;
+        private System.Windows.Forms.RadioButton rbSize;
+        private System.Windows.Forms.Button cmdSaveCsv;
     }
 }
 

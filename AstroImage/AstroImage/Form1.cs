@@ -22,6 +22,25 @@ namespace AstroImage
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.ResizeEnd += Form1_ResizeEnd;
+            splitContainer2.Panel2.AutoScroll = true;
+            this.Size = new Size(500, 500);
+            Form1_ResizeEnd(null, null);
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            splitContainer2.SplitterDistance = 321;
+            splitContainer1.SplitterDistance = 300;
+        }
+
+        private void ActiveForm_ResizeEnd(object sender, EventArgs e)
+        {
+
+        }
+
         private void cmdShowImage_Click(object sender, EventArgs e)
         {
             string fname = txtSourceFile.Text;
@@ -42,6 +61,7 @@ namespace AstroImage
 
         private void cmdIterate_Click(object sender, EventArgs e)
         {
+            int minSize = Convert.ToInt16(txtMinSize.Text);
             Threshold = Convert.ToInt16(txtEdgeThreshold.Text);
             Bitmap img = new Bitmap(txtSourceFile.Text);
             int upperXBound = -1;
@@ -56,7 +76,7 @@ namespace AstroImage
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            BoundingRectList result = FindAllStars(arr, Threshold);
+            BoundingRectList result = FindAllStars(arr, Threshold, minSize);
             sw.Stop();
             lblElapsedTime.Text = "Elapsed Time: " + sw.ElapsedMilliseconds;
             BoundingRects = result;  //Used for writing out BR file
@@ -64,7 +84,7 @@ namespace AstroImage
 
         }
 
-        public BoundingRectList FindAllStars(int[,] arr, int threshold)
+        public BoundingRectList FindAllStars(int[,] arr, int threshold, int minSize)
         {
             BoundingRectList result = new BoundingRectList();
             int xmax = arr.GetUpperBound(0) + 1;
@@ -83,16 +103,19 @@ namespace AstroImage
                     }
                     if (arr[x, y] >= Threshold)  // Edge found
                     {
+
                         Console.WriteLine("--Edge found");
                         Tuple<int, int, int> bar = GetBottomBoundingBar(arr, x, y, Threshold);
                         int xMin = bar.Item1;
                         int xMax = bar.Item2;
                         int yMax = bar.Item3;
                         int yMin = y;
-                        Console.WriteLine("--->BR found at [" + xMin + "," + yMin +"],["+xmax+","+ymax+"]");
-                        BoundingRect rect = new BoundingRect(xMin, yMin, xMax, yMax);
-                        result.BrList.Add(rect);
-
+                        if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
+                        {
+                            Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
+                            BoundingRect rect = new BoundingRect(xMin, yMin, xMax, yMax);
+                            result.BrList.Add(rect);
+                        }
                     }
                     else  //Edge not detected
                     {
@@ -141,7 +164,7 @@ namespace AstroImage
             int maxXarr = arr.GetUpperBound(0) + 1;
             int maxYarr = arr.GetUpperBound(1) + 1;
 
-            if (x == maxXarr-1)     //at edge of image
+            if (x == maxXarr - 1)     //at edge of image
             {
                 return false;
             }
@@ -328,6 +351,48 @@ namespace AstroImage
                 gr.DrawRectangle(pen, rect1);
             }
             pbImage.Invalidate();
+        }
+
+        private void cmdSourceFilePicker_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = txtOuputDir.Text;
+            openFileDialog1.DefaultExt = "bmp";
+            openFileDialog1.ShowDialog();
+            txtSourceFile.Text = openFileDialog1.FileName;
+        }
+
+        private void cmdSaveCsv_Click(object sender, EventArgs e)
+        {
+            FileInfo iFileName = new FileInfo(txtSourceFile.Text);
+
+            string prefix = iFileName.Name.Substring(0, iFileName.Name.Length - 4);
+            string outputFile = "\\" + prefix + ".csv";
+            outputFile = txtOuputDir.Text + outputFile;
+            Console.WriteLine(outputFile);
+
+            int upperLeftX = 0;
+            int upperLeftY = 0;
+            int bottomRightX = pbImage.Width;
+            int bottomRightY = pbImage.Height;
+            int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
+            if (File.Exists(outputFile))
+            {
+                File.Delete(outputFile);
+            }
+            using (StreamWriter writer = new StreamWriter(outputFile))
+            {
+                for (int y = upperLeftY; y < bottomRightY; y++)
+                {
+                    for (int x = upperLeftX; x < bottomRightX; x++)
+                    {
+                        writer.Write(arr[x, y] + ",");
+                    }
+                    writer.WriteLine();
+                }
+                writer.Flush();
+            }
         }
     }
 
