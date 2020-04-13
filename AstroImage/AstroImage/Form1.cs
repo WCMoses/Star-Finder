@@ -109,7 +109,7 @@ namespace AstroImage
                         int xMin = bar.Item1;
                         int xMax = bar.Item2;
                         int yMax = bar.Item3;
-                        int yMin = y;
+                        int yMin = y; //TODO: *** IS THIS CORRECT ??
                         if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
                         {
                             Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
@@ -376,18 +376,18 @@ namespace AstroImage
             int upperLeftY = 0;
             int bottomRightX = pbImage.Width;
             int bottomRightY = pbImage.Height;
-            int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
+            //int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
             if (File.Exists(outputFile))
             {
                 File.Delete(outputFile);
             }
             using (StreamWriter writer = new StreamWriter(outputFile))
             {
-                for (int y = upperLeftY; y < bottomRightY; y++)
+                for (int y = 0; y < upperLeftY- bottomRightY; y++)
                 {
-                    for (int x = upperLeftX; x < bottomRightX; x++)
+                    for (int x = 0; x < upperLeftX- bottomRightX; x++)
                     {
-                        writer.Write(arr[x, y] + ",");
+                        writer.Write(ImageArray[x, y] + ",");
                     }
                     writer.WriteLine();
                 }
