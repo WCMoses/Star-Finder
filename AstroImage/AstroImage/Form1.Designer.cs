@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.cmdSaveCsv = new System.Windows.Forms.Button();
             this.txtMinSize = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cmdSourceFilePicker = new System.Windows.Forms.Button();
@@ -52,11 +53,12 @@
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbCentroid = new System.Windows.Forms.RadioButton();
+            this.rbUpperLefftCoord = new System.Windows.Forms.RadioButton();
             this.rbRelativeBrightness = new System.Windows.Forms.RadioButton();
             this.rbAbsoluteBrightness = new System.Windows.Forms.RadioButton();
             this.rbSize = new System.Windows.Forms.RadioButton();
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.cmdSaveCsv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -148,6 +150,17 @@
             this.splitContainer2.SplitterDistance = 1451;
             this.splitContainer2.SplitterWidth = 15;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // cmdSaveCsv
+            // 
+            this.cmdSaveCsv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSaveCsv.Location = new System.Drawing.Point(745, 355);
+            this.cmdSaveCsv.Name = "cmdSaveCsv";
+            this.cmdSaveCsv.Size = new System.Drawing.Size(229, 89);
+            this.cmdSaveCsv.TabIndex = 18;
+            this.cmdSaveCsv.Text = "Save CSV";
+            this.cmdSaveCsv.UseVisualStyleBackColor = true;
+            this.cmdSaveCsv.Click += new System.EventHandler(this.cmdSaveCsv_Click);
             // 
             // txtMinSize
             // 
@@ -343,6 +356,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbCentroid);
+            this.groupBox1.Controls.Add(this.rbUpperLefftCoord);
             this.groupBox1.Controls.Add(this.rbRelativeBrightness);
             this.groupBox1.Controls.Add(this.rbAbsoluteBrightness);
             this.groupBox1.Controls.Add(this.rbSize);
@@ -354,10 +369,33 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sort BRs By";
             // 
+            // rbCentroid
+            // 
+            this.rbCentroid.AutoSize = true;
+            this.rbCentroid.Location = new System.Drawing.Point(21, 381);
+            this.rbCentroid.Name = "rbCentroid";
+            this.rbCentroid.Size = new System.Drawing.Size(215, 50);
+            this.rbCentroid.TabIndex = 4;
+            this.rbCentroid.TabStop = true;
+            this.rbCentroid.Text = "Centroid";
+            this.rbCentroid.UseVisualStyleBackColor = true;
+            // 
+            // rbUpperLefftCoord
+            // 
+            this.rbUpperLefftCoord.AutoSize = true;
+            this.rbUpperLefftCoord.Checked = true;
+            this.rbUpperLefftCoord.Location = new System.Drawing.Point(21, 75);
+            this.rbUpperLefftCoord.Name = "rbUpperLefftCoord";
+            this.rbUpperLefftCoord.Size = new System.Drawing.Size(456, 50);
+            this.rbUpperLefftCoord.TabIndex = 3;
+            this.rbUpperLefftCoord.TabStop = true;
+            this.rbUpperLefftCoord.Text = "Upper Left Coordinate";
+            this.rbUpperLefftCoord.UseVisualStyleBackColor = true;
+            // 
             // rbRelativeBrightness
             // 
             this.rbRelativeBrightness.AutoSize = true;
-            this.rbRelativeBrightness.Location = new System.Drawing.Point(18, 204);
+            this.rbRelativeBrightness.Location = new System.Drawing.Point(21, 309);
             this.rbRelativeBrightness.Name = "rbRelativeBrightness";
             this.rbRelativeBrightness.Size = new System.Drawing.Size(406, 50);
             this.rbRelativeBrightness.TabIndex = 2;
@@ -367,7 +405,7 @@
             // rbAbsoluteBrightness
             // 
             this.rbAbsoluteBrightness.AutoSize = true;
-            this.rbAbsoluteBrightness.Location = new System.Drawing.Point(18, 129);
+            this.rbAbsoluteBrightness.Location = new System.Drawing.Point(21, 228);
             this.rbAbsoluteBrightness.Name = "rbAbsoluteBrightness";
             this.rbAbsoluteBrightness.Size = new System.Drawing.Size(419, 50);
             this.rbAbsoluteBrightness.TabIndex = 1;
@@ -377,35 +415,23 @@
             // rbSize
             // 
             this.rbSize.AutoSize = true;
-            this.rbSize.Checked = true;
-            this.rbSize.Location = new System.Drawing.Point(18, 53);
+            this.rbSize.Location = new System.Drawing.Point(21, 150);
             this.rbSize.Name = "rbSize";
             this.rbSize.Size = new System.Drawing.Size(142, 50);
             this.rbSize.TabIndex = 0;
-            this.rbSize.TabStop = true;
             this.rbSize.Text = "Size";
             this.rbSize.UseVisualStyleBackColor = true;
             // 
             // txtOutput
             // 
             this.txtOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(0, 0);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(1872, 480);
             this.txtOutput.TabIndex = 0;
-            // 
-            // cmdSaveCsv
-            // 
-            this.cmdSaveCsv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSaveCsv.Location = new System.Drawing.Point(745, 355);
-            this.cmdSaveCsv.Name = "cmdSaveCsv";
-            this.cmdSaveCsv.Size = new System.Drawing.Size(229, 89);
-            this.cmdSaveCsv.TabIndex = 18;
-            this.cmdSaveCsv.Text = "Save CSV";
-            this.cmdSaveCsv.UseVisualStyleBackColor = true;
-            this.cmdSaveCsv.Click += new System.EventHandler(this.cmdSaveCsv_Click);
             // 
             // Form1
             // 
@@ -468,6 +494,8 @@
         private System.Windows.Forms.RadioButton rbAbsoluteBrightness;
         private System.Windows.Forms.RadioButton rbSize;
         private System.Windows.Forms.Button cmdSaveCsv;
+        private System.Windows.Forms.RadioButton rbUpperLefftCoord;
+        private System.Windows.Forms.RadioButton rbCentroid;
     }
 }
 

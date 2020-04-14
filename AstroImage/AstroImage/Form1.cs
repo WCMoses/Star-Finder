@@ -78,6 +78,27 @@ namespace AstroImage
             sw.Start();
             BoundingRectList result = FindAllStars(arr, Threshold, minSize);
             sw.Stop();
+            if (rbAbsoluteBrightness.Checked)
+            {
+                result.SortOrder = BoundingRectList.SortOrderEnum.AbsoluteBrightness;
+            }
+            if (rbCentroid.Checked)
+            {
+                result.SortOrder = BoundingRectList.SortOrderEnum.CentroidLocation;
+            }
+            if (rbRelativeBrightness.Checked)
+            {
+                result.SortOrder = BoundingRectList.SortOrderEnum.RelativeBrightness;
+            }
+            if (rbSize.Checked)
+            {
+                result.SortOrder = BoundingRectList.SortOrderEnum.Volume;
+            }
+            if (rbUpperLefftCoord.Checked)
+            {
+                result.SortOrder = BoundingRectList.SortOrderEnum.UpperLeft;
+            }
+            result.SortList();
             lblElapsedTime.Text = "Elapsed Time: " + sw.ElapsedMilliseconds;
             BoundingRects = result;  //Used for writing out BR file
             DumpBoundingRectList(result);
@@ -113,7 +134,8 @@ namespace AstroImage
                         if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
                         {
                             Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
-                            BoundingRect rect = new BoundingRect(xMin, yMin, xMax, yMax);
+                            int[,] subImage = GetSubImage(arr, xMin, yMin, xMax, yMax);
+                            BoundingRect rect = new BoundingRect(subImage, xMin, yMin, xMax, yMax);
                             result.BrList.Add(rect);
                         }
                     }
@@ -126,6 +148,20 @@ namespace AstroImage
             }
             return result;
         }
+
+        private int[,] GetSubImage(int[,] arr,int xMin, int yMin, int xMax, int yMax)
+        {
+            int[,] result = new  int[xMax - xMin, yMax- yMin];
+            for (int x = 0; x < xMax-xMin-1; x++)
+            {
+                for (int y = 0; y < yMax-yMin-1; y++)
+                {
+                    result[x, y] = arr[x + xMin, y + yMin];
+                }
+            }
+            return result;
+        }
+
         private Tuple<int, int, int> GetBottomBoundingBar(int[,] arr, int xStart, int yStart, int threshold)
         {
             int yResult = yStart;
@@ -248,13 +284,14 @@ namespace AstroImage
         {
             int xmax = arr.GetUpperBound(0) + 1;
             int ymax = arr.GetUpperBound(1) + 1;
+            txtOuputDir.Text += Environment.NewLine;
             for (int y = 0; y < ymax; y++)
             {
                 for (int x = 0; x < xmax; x++)
                 {
-                    Console.Write(arr[x, y] + ",");
+                    txtOuputDir.Text  += (arr[x, y] + ",");
                 }
-                Console.WriteLine();
+                txtOuputDir.Text += Environment.NewLine;
             }
         }
 
@@ -263,9 +300,14 @@ namespace AstroImage
             int count = 0;
             foreach (var item in brList.BrList)
             {
-                string msg = count + "  ";
-                msg += "Found BR at [" + item.UpperLeftX + "," + item.UpperLeftY + "],[" + item.BottomRightX + "," + item.BottomRightY + "]";
-                txtOutput.Text += msg + Environment.NewLine;
+                string message = string.Format("{0}  BR at [({1},{2}),({3},{4})] Volume={5}", count, item.UpperLeftX, item.UpperLeftY, item.BottomRightX, item.BottomRightY,item.Volume);
+                message += string.Format(" Centroid = ({0:G2},{1:G2})", item.CentroidX, item.CentroidY);
+                message += string.Format("  Abs Brightness = {0}  Rel Brightness = {1}", item.AbsoluteBrightness, item.RelativeBrightness);
+                message += Environment.NewLine;
+                //string msg = count + "  ";
+                //msg += "Found BR at [" + item.UpperLeftX + "," + item.UpperLeftY + "],[" + item.BottomRightX + "," + item.BottomRightY + "]";
+                //txtOutput.Text += msg + " Volume:" + item.Volume + "  Centroid: [" + item.CentroidX + "," + item.CentroidY + "]";
+                txtOutput.Text += message;
                 count++;
             }
         }
