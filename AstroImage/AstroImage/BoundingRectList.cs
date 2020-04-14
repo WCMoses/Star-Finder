@@ -92,6 +92,26 @@ namespace AstroImage
             return false;
         }
 
+        public bool BrIntersectsAnotherBr(BoundingRect br)
+        {
+           
+            foreach (var item in BrList)
+            {
+                //  Check to see if any part of rect is in another rect - Onlt need to check top row??
+                // Hack - embed in algorith better.  Should not need??
+                //
+                
+                for (int i = item.UpperLeftX; i < item.BottomRightX + 1; i++)
+                {
+                    if (ContainsPoint(i, br.UpperLeftY))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false ;
+        }
+
 
         public enum SortOrderEnum
         {

@@ -131,12 +131,28 @@ namespace AstroImage
                         int xMax = bar.Item2;
                         int yMax = bar.Item3;
                         int yMin = y; //TODO: *** IS THIS CORRECT ??
+
+                        int[,] subImage = GetSubImage(arr, xMin, yMin, xMax, yMax);
+                        BoundingRect rect = new BoundingRect(subImage, xMin, yMin, xMax, yMax);
+                        Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
+
                         if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
                         {
-                            Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
-                            int[,] subImage = GetSubImage(arr, xMin, yMin, xMax, yMax);
-                            BoundingRect rect = new BoundingRect(subImage, xMin, yMin, xMax, yMax);
-                            result.BrList.Add(rect);
+
+                            if (!result.BrIntersectsAnotherBr(rect))
+                            {
+                                result.BrList.Add(rect);
+                            }
+                            else
+                            {
+                                Console.WriteLine("*** Rejected because it intersects another br");
+                            }
+
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("*** Rejected due to small size");
                         }
                     }
                     else  //Edge not detected
@@ -149,12 +165,12 @@ namespace AstroImage
             return result;
         }
 
-        private int[,] GetSubImage(int[,] arr,int xMin, int yMin, int xMax, int yMax)
+        private int[,] GetSubImage(int[,] arr, int xMin, int yMin, int xMax, int yMax)
         {
-            int[,] result = new  int[xMax - xMin, yMax- yMin];
-            for (int x = 0; x < xMax-xMin-1; x++)
+            int[,] result = new int[xMax - xMin, yMax - yMin];
+            for (int x = 0; x < xMax - xMin - 1; x++)
             {
-                for (int y = 0; y < yMax-yMin-1; y++)
+                for (int y = 0; y < yMax - yMin - 1; y++)
                 {
                     result[x, y] = arr[x + xMin, y + yMin];
                 }
@@ -289,7 +305,7 @@ namespace AstroImage
             {
                 for (int x = 0; x < xmax; x++)
                 {
-                    txtOuputDir.Text  += (arr[x, y] + ",");
+                    txtOuputDir.Text += (arr[x, y] + ",");
                 }
                 txtOuputDir.Text += Environment.NewLine;
             }
@@ -300,9 +316,9 @@ namespace AstroImage
             int count = 0;
             foreach (var item in brList.BrList)
             {
-                string message = string.Format("{0}  BR at [({1},{2}),({3},{4})] Volume={5}", count, item.UpperLeftX, item.UpperLeftY, item.BottomRightX, item.BottomRightY,item.Volume);
+                string message = string.Format("{0}  BR at [({1},{2}),({3},{4})] Volume={5}", count, item.UpperLeftX, item.UpperLeftY, item.BottomRightX, item.BottomRightY, item.Volume);
                 message += string.Format(" Centroid = ({0:G2},{1:G2})", item.CentroidX, item.CentroidY);
-                message += string.Format("  Abs Brightness = {0}  Rel Brightness = {1}", item.AbsoluteBrightness, item.RelativeBrightness);
+                message += string.Format("  Abs Brightness = {0:G5}  Rel Brightness = {1:G5}", item.AbsoluteBrightness, item.RelativeBrightness);
                 message += Environment.NewLine;
                 //string msg = count + "  ";
                 //msg += "Found BR at [" + item.UpperLeftX + "," + item.UpperLeftY + "],[" + item.BottomRightX + "," + item.BottomRightY + "]";
@@ -425,9 +441,9 @@ namespace AstroImage
             }
             using (StreamWriter writer = new StreamWriter(outputFile))
             {
-                for (int y = 0; y < upperLeftY- bottomRightY; y++)
+                for (int y = 0; y < upperLeftY - bottomRightY; y++)
                 {
-                    for (int x = 0; x < upperLeftX- bottomRightX; x++)
+                    for (int x = 0; x < upperLeftX - bottomRightX; x++)
                     {
                         writer.Write(ImageArray[x, y] + ",");
                     }
