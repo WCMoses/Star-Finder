@@ -164,9 +164,7 @@ namespace AstroImage
         private double CalculateRelativeBrightness()
         {
             double result = 0;
-            int h = BottomRightX - UpperLeftX;
-            int w = BottomRightY - UpperLeftY;
-            result = AbsoluteBrightness / h * w;
+            result = AbsoluteBrightness /Volume;
             return result;
         }
     }

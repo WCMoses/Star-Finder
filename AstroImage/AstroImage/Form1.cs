@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -52,13 +53,39 @@ namespace AstroImage
             }
             Image imag = Image.FromFile(fname);
             Bitmap img = new Bitmap(new Bitmap(imag));
-            pbImage.Image = img;
-            int h = img.Height;
-            int w = img.Width;
-            lblHeight.Text = "Height: " + h.ToString();
-            lblWidth.Text = "Width: " + w.ToString();
+
+            Image grayScaled = (Image)MakeGrayscale3(new Bitmap(img));
+            pbImage.Image = grayScaled;
         }
 
+        public static Bitmap MakeGrayscale3(Bitmap original)
+        {
+            //create a blank bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            //get a graphics object from the new image
+            Graphics g = Graphics.FromImage(newBitmap);
+            //create the grayscale ColorMatrix
+            ColorMatrix colorMatrix = new ColorMatrix(
+               new float[][]
+              {
+                 new float[] {.3f, .3f, .3f, 0, 0},
+                 new float[] {.59f, .59f, .59f, 0, 0},
+                 new float[] {.11f, .11f, .11f, 0, 0},
+                 new float[] {0, 0, 0, 1, 0},
+                 new float[] {0, 0, 0, 0, 1}
+              });
+            //create some image attributes
+            ImageAttributes attributes = new ImageAttributes();
+            //set the color matrix attribute
+            attributes.SetColorMatrix(colorMatrix);
+            //draw the original image on the new image
+            //using the grayscale color matrix
+            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+               0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+            //dispose the Graphics object
+            g.Dispose();
+            return newBitmap;
+        }
         private void cmdIterate_Click(object sender, EventArgs e)
         {
             int minSize = Convert.ToInt16(txtMinSize.Text);
@@ -148,7 +175,6 @@ namespace AstroImage
                                 Console.WriteLine("*** Rejected because it intersects another br");
                             }
 
-
                         }
                         else
                         {
@@ -207,6 +233,10 @@ namespace AstroImage
                 }
 
                 //Move down a line
+                if (yResult >= maxYarr)
+                {
+                    return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
+                }
                 yResult++;
             }
             return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
@@ -220,6 +250,10 @@ namespace AstroImage
             {
                 return false;
             }
+            if (y>= maxYarr)
+            {
+                return false;
+            }
             Console.WriteLine("   VTR: " + (x + 1) + "," + y + "--" + arr[x + 1, y]);
             if (arr[x + 1, y] > threshold)
             {
@@ -230,7 +264,13 @@ namespace AstroImage
 
         private bool ValueToLeftIsAboveThreshold(int[,] arr, int x, int y, int threshold)
         {
+            int maxXarr = arr.GetUpperBound(0) + 1;
+            int maxYarr = arr.GetUpperBound(1) + 1;
             if (x == 0)     //at edge of image
+            {
+                return false;
+            }
+            if (y>= maxYarr)
             {
                 return false;
             }
@@ -249,8 +289,11 @@ namespace AstroImage
             int minX = startX;
             int maxX = endX;
 
-            //TODO: Check to make sure y+1 is in bounds
-
+            //Check to make sure y+1 is in bounds
+            if (y >= maxYarr - 1)
+            {
+                return false;
+            }
             for (int i = startX; i < endX; i++)
             {
                 Console.WriteLine("   EVB: " + i + "," + (y + 1) + "  -  " + arr[i, y + 1]);
@@ -434,18 +477,18 @@ namespace AstroImage
             int upperLeftY = 0;
             int bottomRightX = pbImage.Width;
             int bottomRightY = pbImage.Height;
-            //int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
+            int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
             if (File.Exists(outputFile))
             {
                 File.Delete(outputFile);
             }
             using (StreamWriter writer = new StreamWriter(outputFile))
             {
-                for (int y = 0; y < upperLeftY - bottomRightY; y++)
+                for (int y = 0; y < bottomRightY - upperLeftY; y++)
                 {
-                    for (int x = 0; x < upperLeftX - bottomRightX; x++)
+                    for (int x = 0; x < bottomRightX - upperLeftX; x++)
                     {
-                        writer.Write(ImageArray[x, y] + ",");
+                        writer.Write(arr[x, y] + ",");
                     }
                     writer.WriteLine();
                 }
