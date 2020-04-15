@@ -27,13 +27,13 @@ namespace AstroImage
         {
             this.ResizeEnd += Form1_ResizeEnd;
             splitContainer2.Panel2.AutoScroll = true;
-            this.Size = new Size(500, 500);
+            this.Size = new Size(700, 500);
             Form1_ResizeEnd(null, null);
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            splitContainer2.SplitterDistance = 321;
+            splitContainer2.SplitterDistance = 500;
             splitContainer1.SplitterDistance = 300;
         }
 
@@ -54,10 +54,101 @@ namespace AstroImage
             Image imag = Image.FromFile(fname);
             Bitmap img = new Bitmap(new Bitmap(imag));
 
+
             Image grayScaled = (Image)MakeGrayscale3(new Bitmap(img));
+            ImageArray = GetIntArrayFromImage(new Bitmap(grayScaled));
+            //pbImage.Image = img;
             pbImage.Image = grayScaled;
+
+            lblHeight.Text = "Height: " + img.Height;
+            lblWidth.Text = "Width: " + img.Width;
+            double dMean = GetMean(ImageArray);
+            double dStDev = GetStdDev2(ImageArray);
+            string mean =string.Format( "Mean: {0:F2}", Convert.ToString(dMean));
+            lblMean.Text = mean;
+            string stdev = string.Format("Std Dev:{0:F}", Convert.ToString(dStDev));
+            lblStDev.Text = stdev;
+            double doubleStDev = 2 * dStDev + dMean;
+            string recommended = string.Format("2xStDev+M: {0:N1}" ,Convert.ToString(doubleStDev));
+            lbl2StDev.Text = recommended;
         }
 
+        private double GetMean(int[,] imageArray)
+        {
+            double result = 0;
+            double sum = 0;
+            int h = imageArray.GetUpperBound(0) - 1;
+            int w = imageArray.GetUpperBound(1) - 1;
+            for (int y = 0; y < w; y++)
+            {
+                for (int x = 0; x < h; x++)
+                {
+                    sum += imageArray[x, y];
+                }
+            }
+            int pixels = h * w;
+            result = sum / pixels;
+            return result;
+        }
+
+        // Return the standard deviation of an array of Doubles.
+        //
+        // If the second argument is True, evaluate as a sample.
+        // If the second argument is False, evaluate as a population.
+        public double GetStdDev(int[,] arr, bool as_sample)
+        {
+            int h = arr.GetUpperBound(0) - 1;
+            int w = arr.GetUpperBound(1) - 1;
+            double[] values = new double[h * w];
+            int count = 0;
+            for (int y = 0; y < w; y++)
+            {
+                for (int x = 0; x < h; x++)
+                {
+                    values[count] += arr[x, y];
+                    count++;
+                }
+            }
+            // Get the mean.
+            double mean = values.Sum() / values.Count();
+
+            // Get the sum of the squares of the differences
+            // between the values and the mean.
+            var squares_query =
+                from int value in values
+                select (value - mean) * (value - mean);
+            double sum_of_squares = squares_query.Sum();
+
+            if (as_sample)
+            {
+                return Math.Sqrt(sum_of_squares / (values.Count() - 1));
+            }
+            else
+            {
+                return Math.Sqrt(sum_of_squares / values.Count());
+            }
+        }
+
+        public double GetStdDev2(int[,] arr)
+        {
+            int h = arr.GetUpperBound(0) - 1;
+            int w = arr.GetUpperBound(1) - 1;
+            double[] values = new double[h * w];
+            int count = 0;
+            for (int y = 0; y < w; y++)
+            {
+                for (int x = 0; x < h; x++)
+                {
+                    values[count] += arr[x, y];
+                    count++;
+                }
+            }
+            double[] someDoubles = values ;
+            double average = someDoubles.Average();
+            double sumOfSquaresOfDifferences = someDoubles.Select(val => (val - average) * (val - average)).Sum();
+            double sd = Math.Sqrt(sumOfSquaresOfDifferences / someDoubles.Length);
+            return sd;
+        }
         public static Bitmap MakeGrayscale3(Bitmap original)
         {
             //create a blank bitmap the same size as original
@@ -250,7 +341,7 @@ namespace AstroImage
             {
                 return false;
             }
-            if (y>= maxYarr)
+            if (y >= maxYarr)
             {
                 return false;
             }
@@ -270,7 +361,7 @@ namespace AstroImage
             {
                 return false;
             }
-            if (y>= maxYarr)
+            if (y >= maxYarr)
             {
                 return false;
             }
@@ -475,8 +566,8 @@ namespace AstroImage
 
             int upperLeftX = 0;
             int upperLeftY = 0;
-            int bottomRightX = pbImage.Width;
-            int bottomRightY = pbImage.Height;
+            int bottomRightX = pbImage.Image.Width;
+            int bottomRightY = pbImage.Image.Height;
             int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
             if (File.Exists(outputFile))
             {
@@ -484,9 +575,9 @@ namespace AstroImage
             }
             using (StreamWriter writer = new StreamWriter(outputFile))
             {
-                for (int y = 0; y < bottomRightY - upperLeftY; y++)
+                for (int y = 0; y < bottomRightY - upperLeftY - 1; y++)
                 {
-                    for (int x = 0; x < bottomRightX - upperLeftX; x++)
+                    for (int x = 0; x < bottomRightX - upperLeftX - 1; x++)
                     {
                         writer.Write(arr[x, y] + ",");
                     }

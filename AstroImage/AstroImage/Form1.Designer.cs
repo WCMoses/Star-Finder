@@ -32,6 +32,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.cmdOutputDirPicker = new System.Windows.Forms.Button();
+            this.lblStDev = new System.Windows.Forms.Label();
+            this.lblMean = new System.Windows.Forms.Label();
             this.cmdSaveCsv = new System.Windows.Forms.Button();
             this.txtMinSize = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -59,6 +62,7 @@
             this.rbAbsoluteBrightness = new System.Windows.Forms.RadioButton();
             this.rbSize = new System.Windows.Forms.RadioButton();
             this.txtOutput = new System.Windows.Forms.TextBox();
+            this.lbl2StDev = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -124,6 +128,10 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.lbl2StDev);
+            this.splitContainer2.Panel1.Controls.Add(this.cmdOutputDirPicker);
+            this.splitContainer2.Panel1.Controls.Add(this.lblStDev);
+            this.splitContainer2.Panel1.Controls.Add(this.lblMean);
             this.splitContainer2.Panel1.Controls.Add(this.cmdSaveCsv);
             this.splitContainer2.Panel1.Controls.Add(this.txtMinSize);
             this.splitContainer2.Panel1.Controls.Add(this.label4);
@@ -151,6 +159,35 @@
             this.splitContainer2.SplitterWidth = 15;
             this.splitContainer2.TabIndex = 0;
             // 
+            // cmdOutputDirPicker
+            // 
+            this.cmdOutputDirPicker.Location = new System.Drawing.Point(827, 249);
+            this.cmdOutputDirPicker.Name = "cmdOutputDirPicker";
+            this.cmdOutputDirPicker.Size = new System.Drawing.Size(140, 71);
+            this.cmdOutputDirPicker.TabIndex = 21;
+            this.cmdOutputDirPicker.Text = "..";
+            this.cmdOutputDirPicker.UseVisualStyleBackColor = true;
+            // 
+            // lblStDev
+            // 
+            this.lblStDev.AutoSize = true;
+            this.lblStDev.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStDev.Location = new System.Drawing.Point(997, 552);
+            this.lblStDev.Name = "lblStDev";
+            this.lblStDev.Size = new System.Drawing.Size(237, 46);
+            this.lblStDev.TabIndex = 20;
+            this.lblStDev.Text = "Std Dev.:XX\r\n";
+            // 
+            // lblMean
+            // 
+            this.lblMean.AutoSize = true;
+            this.lblMean.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMean.Location = new System.Drawing.Point(997, 474);
+            this.lblMean.Name = "lblMean";
+            this.lblMean.Size = new System.Drawing.Size(184, 46);
+            this.lblMean.TabIndex = 19;
+            this.lblMean.Text = "Mean:XX";
+            // 
             // cmdSaveCsv
             // 
             this.cmdSaveCsv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -165,7 +202,7 @@
             // txtMinSize
             // 
             this.txtMinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMinSize.Location = new System.Drawing.Point(867, 269);
+            this.txtMinSize.Location = new System.Drawing.Point(1304, 134);
             this.txtMinSize.Name = "txtMinSize";
             this.txtMinSize.Size = new System.Drawing.Size(100, 53);
             this.txtMinSize.TabIndex = 17;
@@ -175,7 +212,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(656, 272);
+            this.label4.Location = new System.Drawing.Point(997, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(173, 46);
             this.label4.TabIndex = 16;
@@ -256,9 +293,9 @@
             // txtEdgeThreshold
             // 
             this.txtEdgeThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEdgeThreshold.Location = new System.Drawing.Point(316, 269);
+            this.txtEdgeThreshold.Location = new System.Drawing.Point(1304, 62);
             this.txtEdgeThreshold.Name = "txtEdgeThreshold";
-            this.txtEdgeThreshold.Size = new System.Drawing.Size(70, 53);
+            this.txtEdgeThreshold.Size = new System.Drawing.Size(100, 53);
             this.txtEdgeThreshold.TabIndex = 7;
             this.txtEdgeThreshold.Text = "25";
             // 
@@ -266,7 +303,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 272);
+            this.label2.Location = new System.Drawing.Point(997, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(301, 46);
             this.label2.TabIndex = 6;
@@ -276,7 +313,7 @@
             // 
             this.lblWidth.AutoSize = true;
             this.lblWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWidth.Location = new System.Drawing.Point(373, 398);
+            this.lblWidth.Location = new System.Drawing.Point(997, 380);
             this.lblWidth.Name = "lblWidth";
             this.lblWidth.Size = new System.Drawing.Size(214, 46);
             this.lblWidth.TabIndex = 5;
@@ -286,7 +323,7 @@
             // 
             this.lblHeight.AutoSize = true;
             this.lblHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeight.Location = new System.Drawing.Point(373, 338);
+            this.lblHeight.Location = new System.Drawing.Point(997, 300);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(227, 46);
             this.lblHeight.TabIndex = 4;
@@ -433,6 +470,16 @@
             this.txtOutput.Size = new System.Drawing.Size(1872, 480);
             this.txtOutput.TabIndex = 0;
             // 
+            // lbl2StDev
+            // 
+            this.lbl2StDev.AutoSize = true;
+            this.lbl2StDev.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl2StDev.Location = new System.Drawing.Point(997, 215);
+            this.lbl2StDev.Name = "lbl2StDev";
+            this.lbl2StDev.Size = new System.Drawing.Size(192, 46);
+            this.lbl2StDev.TabIndex = 22;
+            this.lbl2StDev.Text = "2X SD+M";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
@@ -496,6 +543,10 @@
         private System.Windows.Forms.Button cmdSaveCsv;
         private System.Windows.Forms.RadioButton rbUpperLefftCoord;
         private System.Windows.Forms.RadioButton rbCentroid;
+        private System.Windows.Forms.Button cmdOutputDirPicker;
+        private System.Windows.Forms.Label lblStDev;
+        private System.Windows.Forms.Label lblMean;
+        private System.Windows.Forms.Label lbl2StDev;
     }
 }
 
