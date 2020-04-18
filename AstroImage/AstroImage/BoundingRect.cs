@@ -8,10 +8,12 @@ namespace AstroImage
 {
     public class BoundingRect
     {
-        public int UpperLeftX { get; set; }
-        public int UpperLeftY { get; set; }
-        public int BottomRightX { get; set; }
-        public int BottomRightY { get; set; }
+        private StarFinderHelper helper = new StarFinderHelper();
+        public int[,] ImageData { get; private set; }
+        public int OriginalUpperLeftX { get; set; }
+        public int OriginalUpperLeftY { get; set; }
+        public int OriginalBottomRightX { get; set; }
+        public int OriginalBottomRightY { get; set; }
 
         private double _absBrightness;
         public double AbsoluteBrightness
@@ -20,7 +22,7 @@ namespace AstroImage
             {
                 if (_absBrightness == 0)
                 {
-                    _absBrightness = CalculateAbsoluteBrightness();
+                    _absBrightness = helper.CalculateAbsoluteBrightness(ImageData);
                 }
                 return _absBrightness;
             }
@@ -36,7 +38,7 @@ namespace AstroImage
             {
                 if (_relBrightness == 0)
                 {
-                    _relBrightness = CalculateRelativeBrightness();
+                    _relBrightness = helper.CalculateRelativeBrightness(ImageData);
                 }
                 return _relBrightness;
             }
@@ -47,7 +49,7 @@ namespace AstroImage
         {
             get
             {
-                return (BottomRightX - UpperLeftX) * (BottomRightY - UpperLeftY);
+                return (OriginalBottomRightX - OriginalUpperLeftX) * (OriginalBottomRightY - OriginalUpperLeftY);
             }
         }
 
@@ -79,24 +81,44 @@ namespace AstroImage
             private set { _centroidY = value; }
         }
 
+        public double Mean
+        {
+            get
+            { return helper.GetMean(ImageData); }
+        }
 
-        public int[,] ImageData { get; private set; }
+        public double StdDeviation
+        {
+            get
+            { return helper.GetStdDev(ImageData); }
+        }
+
 
         public BoundingRect(int[,] imageData, int upperLeftX, int upperLeftY, int bottomRightX, int bottomRightY)
         {
+            int xmax = imageData.GetUpperBound(0);
+             
+            if ((bottomRightX-upperLeftX) != imageData.GetUpperBound(0)+1)
+            {
+                throw new Exception("Bounding rects coordinates are incorrect size in x.");
+            }
+            if ((bottomRightY - upperLeftY) != imageData.GetUpperBound(1) + 1)
+            {
+                throw new Exception("Bounding rects coordinates are incorrect size in y.");
+            }
             ImageData = imageData;
-            UpperLeftX = upperLeftX;
-            UpperLeftY = upperLeftY;
-            BottomRightX = bottomRightX;
-            BottomRightY = bottomRightY;
+            OriginalUpperLeftX = upperLeftX;
+            OriginalUpperLeftY = upperLeftY;
+            OriginalBottomRightX = bottomRightX;
+            OriginalBottomRightY = bottomRightY;
         }
 
         public bool ContainsPoint(int x, int y)
         {
             bool result = false;
-            if ((x >= UpperLeftX) && (x <= BottomRightX))
+            if ((x >= OriginalUpperLeftX) && (x <= OriginalBottomRightX))
             {
-                if ((y >= UpperLeftY) && (y <= BottomRightY))
+                if ((y >= OriginalUpperLeftY) && (y <= OriginalBottomRightY))
                 {
                     result = true;
                 }
@@ -110,15 +132,15 @@ namespace AstroImage
 
             double resultX = 0;
             double resultY = 0;
-            double[] xLine = new double[BottomRightX - UpperLeftX];
-            double[] yLine = new double[BottomRightY - UpperLeftY];
+            double[] xLine = new double[OriginalBottomRightX - OriginalUpperLeftX];
+            double[] yLine = new double[OriginalBottomRightY - OriginalUpperLeftY];
             double xLineSum = 0;
             double yLineSum = 0;
 
             //Calculate x value
-            for (int y = 0; y < BottomRightY - UpperLeftY - 1; y++)
+            for (int y = 0; y < OriginalBottomRightY - OriginalUpperLeftY - 1; y++)
             {
-                for (int x = 0; x < BottomRightX - UpperLeftX - 1; x++)
+                for (int x = 0; x < OriginalBottomRightX - OriginalUpperLeftX - 1; x++)
                 {
                     xLine[x] = ImageData[x, y];
                 }
@@ -131,9 +153,9 @@ namespace AstroImage
             resultX = xSum / xLineSum;  //<--x RESULT
 
             //Get y Values
-            for (int x = 0; x < BottomRightX - UpperLeftX - 1; x++)
+            for (int x = 0; x < OriginalBottomRightX - OriginalUpperLeftX - 1; x++)
             {
-                for (int y = 0; y < BottomRightY - UpperLeftY - 1; y++)
+                for (int y = 0; y < OriginalBottomRightY - OriginalUpperLeftY - 1; y++)
                 {
                     yLine[y] = ImageData[x, y];
                 }
@@ -149,23 +171,15 @@ namespace AstroImage
             CentroidY = resultY;
         }
 
-        private double CalculateAbsoluteBrightness()
+
+
+
+      
+
+        //File Functions
+        public void SaveToCsv(string fullPath)
         {
-            double result = 0;
-            for (int y = 0; y < BottomRightY - UpperLeftY - 1; y++)
-            {
-                for (int x = 0; x < BottomRightX - UpperLeftX - 1; x++)
-                {
-                    result += ImageData[x, y];
-                }
-            }
-            return result;
-        }
-        private double CalculateRelativeBrightness()
-        {
-            double result = 0;
-            result = AbsoluteBrightness /Volume;
-            return result;
+            helper.SaveToCsv(ImageData, fullPath);
         }
     }
 }

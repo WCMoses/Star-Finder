@@ -35,5 +35,12 @@ namespace DrawingTests1
             gr.DrawRectangle(pen, rect1);
             pbImage.Invalidate();
         }
+
+        private void cmdMisc_Click(object sender, EventArgs e)
+        {
+            double d = 95.12345678;
+            txtSourceFile.Text = string.Format("Hello{0:F2}", d);
+        }
     }
 }
+;

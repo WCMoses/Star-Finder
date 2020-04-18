@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AstroImage
 {
     public partial class Form1 : Form
     {
-        BoundingRectList BoundingRects = new BoundingRectList();
+        //BoundingRectList BoundingRects = new BoundingRectList();
+        private StarFinder sf;
         int Threshold = 25;
-        int[,] ImageArray;
+       // int[,] ImageArray;
         public Form1()
         {
             InitializeComponent();
@@ -56,20 +53,21 @@ namespace AstroImage
 
 
             Image grayScaled = (Image)MakeGrayscale3(new Bitmap(img));
-            ImageArray = GetIntArrayFromImage(new Bitmap(grayScaled));
+            var imageArray = GetIntArrayFromImage(new Bitmap(grayScaled));
+            sf = new StarFinder(imageArray);
             //pbImage.Image = img;
             pbImage.Image = grayScaled;
 
             lblHeight.Text = "Height: " + img.Height;
             lblWidth.Text = "Width: " + img.Width;
-            double dMean = GetMean(ImageArray);
-            double dStDev = GetStdDev2(ImageArray);
-            string mean =string.Format( "Mean: {0:F2}", Convert.ToString(dMean));
+            double dMean = sf.ImageDataMean; ;
+            double dStDev = sf.ImageDataStdDev;
+            string mean = string.Format("Mean: {0:F2}", Convert.ToString(dMean));
             lblMean.Text = mean;
-            string stdev = string.Format("Std Dev:{0:F}", Convert.ToString(dStDev));
+            string stdev = string.Format("Std Dev:{0:F2}", Convert.ToString(dStDev));
             lblStDev.Text = stdev;
             double doubleStDev = 2 * dStDev + dMean;
-            string recommended = string.Format("2xStDev+M: {0:N1}" ,Convert.ToString(doubleStDev));
+            string recommended = string.Format("2xStDev+M: {0:F2}", Convert.ToString(doubleStDev));
             lbl2StDev.Text = recommended;
         }
 
@@ -143,7 +141,7 @@ namespace AstroImage
                     count++;
                 }
             }
-            double[] someDoubles = values ;
+            double[] someDoubles = values;
             double average = someDoubles.Average();
             double sumOfSquaresOfDifferences = someDoubles.Select(val => (val - average) * (val - average)).Sum();
             double sd = Math.Sqrt(sumOfSquaresOfDifferences / someDoubles.Length);
@@ -190,211 +188,214 @@ namespace AstroImage
             int yImage = img.Width;
             int[,] arr = new int[xImage, yImage];
             arr = GetIntArrayFromImage(img);
-            ImageArray = arr;   //Used for writing out the subframes.
+            //ImageArray = arr;   //Used for writing out the subframes.
+            sf.Threshold = Convert.ToInt16(txtEdgeThreshold.Text);
+            sf.MinSize = Convert.ToInt16(txtMinSize.Text);
 
+            
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            BoundingRectList result = FindAllStars(arr, Threshold, minSize);
+            BoundingRectList result = sf.FindAllStars(arr);
             sw.Stop();
             if (rbAbsoluteBrightness.Checked)
             {
-                result.SortOrder = BoundingRectList.SortOrderEnum.AbsoluteBrightness;
+                sf.BoundingRects.SortOrder = BoundingRectList.SortOrderEnum.AbsoluteBrightness;
             }
             if (rbCentroid.Checked)
             {
-                result.SortOrder = BoundingRectList.SortOrderEnum.CentroidLocation;
+                sf.BoundingRects.SortOrder = BoundingRectList.SortOrderEnum.CentroidLocation;
             }
             if (rbRelativeBrightness.Checked)
             {
-                result.SortOrder = BoundingRectList.SortOrderEnum.RelativeBrightness;
+                sf.BoundingRects.SortOrder = BoundingRectList.SortOrderEnum.RelativeBrightness;
             }
             if (rbSize.Checked)
             {
-                result.SortOrder = BoundingRectList.SortOrderEnum.Volume;
+                sf.BoundingRects.SortOrder = BoundingRectList.SortOrderEnum.Volume;
             }
             if (rbUpperLefftCoord.Checked)
             {
-                result.SortOrder = BoundingRectList.SortOrderEnum.UpperLeft;
+                sf.BoundingRects.SortOrder = BoundingRectList.SortOrderEnum.UpperLeft;
             }
-            result.SortList();
+            sf.BoundingRects.SortList();
             lblElapsedTime.Text = "Elapsed Time: " + sw.ElapsedMilliseconds;
-            BoundingRects = result;  //Used for writing out BR file
-            DumpBoundingRectList(result);
+           
+            DumpBoundingRectList(sf.BoundingRects);
 
         }
 
-        public BoundingRectList FindAllStars(int[,] arr, int threshold, int minSize)
-        {
-            BoundingRectList result = new BoundingRectList();
-            int xmax = arr.GetUpperBound(0) + 1;
-            int ymax = arr.GetUpperBound(1) + 1;
+        //public BoundingRectList FindAllStars(int[,] arr, int threshold, int minSize)
+        //{
+        //    BoundingRectList result = new BoundingRectList();
+        //    int xmax = arr.GetUpperBound(0) + 1;
+        //    int ymax = arr.GetUpperBound(1) + 1;
 
-            //Top-level loop
-            for (int y = 0; y < ymax; y++)
-            {
-                for (int x = 0; x < xmax; x++)
-                {
-                    Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
-                    if (result.ContainsPoint(x, y)) //Is point already in a blob
-                    {
-                        Console.WriteLine("--Already in BR");
-                        continue;  //point is already in a bounding rect
-                    }
-                    if (arr[x, y] >= Threshold)  // Edge found
-                    {
+        //    //Top-level loop
+        //    for (int y = 0; y < ymax; y++)
+        //    {
+        //        for (int x = 0; x < xmax; x++)
+        //        {
+        //            Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
+        //            if (result.ContainsPoint(x, y)) //Is point already in a blob
+        //            {
+        //                Console.WriteLine("--Already in BR");
+        //                continue;  //point is already in a bounding rect
+        //            }
+        //            if (arr[x, y] >= Threshold)  // Edge found
+        //            {
 
-                        Console.WriteLine("--Edge found");
-                        Tuple<int, int, int> bar = GetBottomBoundingBar(arr, x, y, Threshold);
-                        int xMin = bar.Item1;
-                        int xMax = bar.Item2;
-                        int yMax = bar.Item3;
-                        int yMin = y; //TODO: *** IS THIS CORRECT ??
+        //                Console.WriteLine("--Edge found");
+        //                Tuple<int, int, int> bar = GetBottomBoundingBar(arr, x, y, Threshold);
+        //                int xMin = bar.Item1;
+        //                int xMax = bar.Item2;
+        //                int yMax = bar.Item3;
+        //                int yMin = y; //TODO: *** IS THIS CORRECT ??
 
-                        int[,] subImage = GetSubImage(arr, xMin, yMin, xMax, yMax);
-                        BoundingRect rect = new BoundingRect(subImage, xMin, yMin, xMax, yMax);
-                        Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
+        //                int[,] subImage = GetSubImage(arr, xMin, yMin, xMax, yMax);
+        //                BoundingRect rect = new BoundingRect(subImage, xMin, yMin, xMax, yMax);
+        //                Console.WriteLine("--->BR found at [" + xMin + "," + yMin + "],[" + xmax + "," + ymax + "]");
 
-                        if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
-                        {
+        //                if (((xMax - xMin) >= minSize) && ((yMax - yMin) >= minSize))
+        //                {
 
-                            if (!result.BrIntersectsAnotherBr(rect))
-                            {
-                                result.BrList.Add(rect);
-                            }
-                            else
-                            {
-                                Console.WriteLine("*** Rejected because it intersects another br");
-                            }
+        //                    if (!result.BrIntersectsAnotherBr(rect))
+        //                    {
+        //                        result.BrList.Add(rect);
+        //                    }
+        //                    else
+        //                    {
+        //                        Console.WriteLine("*** Rejected because it intersects another br");
+        //                    }
 
-                        }
-                        else
-                        {
-                            Console.WriteLine("*** Rejected due to small size");
-                        }
-                    }
-                    else  //Edge not detected
-                    {
-                        Console.WriteLine("--No Edge");
-                    }
-                }
+        //                }
+        //                else
+        //                {
+        //                    Console.WriteLine("*** Rejected due to small size");
+        //                }
+        //            }
+        //            else  //Edge not detected
+        //            {
+        //                Console.WriteLine("--No Edge");
+        //            }
+        //        }
 
-            }
-            return result;
-        }
+        //    }
+        //    return result;
+        //}
 
-        private int[,] GetSubImage(int[,] arr, int xMin, int yMin, int xMax, int yMax)
-        {
-            int[,] result = new int[xMax - xMin, yMax - yMin];
-            for (int x = 0; x < xMax - xMin - 1; x++)
-            {
-                for (int y = 0; y < yMax - yMin - 1; y++)
-                {
-                    result[x, y] = arr[x + xMin, y + yMin];
-                }
-            }
-            return result;
-        }
+        //private int[,] GetSubImage(int[,] arr, int xMin, int yMin, int xMax, int yMax)
+        //{
+        //    int[,] result = new int[xMax - xMin, yMax - yMin];
+        //    for (int x = 0; x < xMax - xMin - 1; x++)
+        //    {
+        //        for (int y = 0; y < yMax - yMin - 1; y++)
+        //        {
+        //            result[x, y] = arr[x + xMin, y + yMin];
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        private Tuple<int, int, int> GetBottomBoundingBar(int[,] arr, int xStart, int yStart, int threshold)
-        {
-            int yResult = yStart;
-            int xMaxResult = xStart;
-            int xMinResult = xStart;
-            int maxXarr = arr.GetUpperBound(0) + 1;
-            int maxYarr = arr.GetUpperBound(1) + 1;
+        //private Tuple<int, int, int> GetBottomBoundingBar(int[,] arr, int xStart, int yStart, int threshold)
+        //{
+        //    int yResult = yStart;
+        //    int xMaxResult = xStart;
+        //    int xMinResult = xStart;
+        //    int maxXarr = arr.GetUpperBound(0) + 1;
+        //    int maxYarr = arr.GetUpperBound(1) + 1;
 
-            //Expand current row to the right.  No need to expand to left
-            while (ValueToRightIsAboveThreshold(arr, xMaxResult, yResult, threshold))
-            {
-                xMaxResult++;
-            }
+        //    //Expand current row to the right.  No need to expand to left
+        //    while (ValueToRightIsAboveThreshold(arr, xMaxResult, yResult, threshold))
+        //    {
+        //        xMaxResult++;
+        //    }
 
-            while (!EveryValueBelowIsBelowThreshold(arr, yResult, xMinResult, xMaxResult, threshold))
-            {
-                //Expand to the right
-                while (ValueToRightIsAboveThreshold(arr, xMaxResult, yResult, threshold))
-                {
-                    xMaxResult++;
-                }
+        //    while (!EveryValueBelowIsBelowThreshold(arr, yResult, xMinResult, xMaxResult, threshold))
+        //    {
+        //        //Expand to the right
+        //        while (ValueToRightIsAboveThreshold(arr, xMaxResult, yResult, threshold))
+        //        {
+        //            xMaxResult++;
+        //        }
 
-                //Expand to the left
-                while (ValueToLeftIsAboveThreshold(arr, xMinResult, yResult, threshold))
-                {
-                    xMinResult--;
-                }
+        //        //Expand to the left
+        //        while (ValueToLeftIsAboveThreshold(arr, xMinResult, yResult, threshold))
+        //        {
+        //            xMinResult--;
+        //        }
 
-                //Move down a line
-                if (yResult >= maxYarr)
-                {
-                    return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
-                }
-                yResult++;
-            }
-            return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
-        }
-        private bool ValueToRightIsAboveThreshold(int[,] arr, int x, int y, int threshold)
-        {
-            int maxXarr = arr.GetUpperBound(0) + 1;
-            int maxYarr = arr.GetUpperBound(1) + 1;
+        //        //Move down a line
+        //        if (yResult >= maxYarr)
+        //        {
+        //            return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
+        //        }
+        //        yResult++;
+        //    }
+        //    return new Tuple<int, int, int>(xMinResult, xMaxResult, yResult);
+        //}
+        //private bool ValueToRightIsAboveThreshold(int[,] arr, int x, int y, int threshold)
+        //{
+        //    int maxXarr = arr.GetUpperBound(0) + 1;
+        //    int maxYarr = arr.GetUpperBound(1) + 1;
 
-            if (x == maxXarr - 1)     //at edge of image
-            {
-                return false;
-            }
-            if (y >= maxYarr)
-            {
-                return false;
-            }
-            Console.WriteLine("   VTR: " + (x + 1) + "," + y + "--" + arr[x + 1, y]);
-            if (arr[x + 1, y] > threshold)
-            {
-                return true;
-            }
-            return false;
-        }
+        //    if (x == maxXarr - 1)     //at edge of image
+        //    {
+        //        return false;
+        //    }
+        //    if (y >= maxYarr)
+        //    {
+        //        return false;
+        //    }
+        //    Console.WriteLine("   VTR: " + (x + 1) + "," + y + "--" + arr[x + 1, y]);
+        //    if (arr[x + 1, y] > threshold)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool ValueToLeftIsAboveThreshold(int[,] arr, int x, int y, int threshold)
-        {
-            int maxXarr = arr.GetUpperBound(0) + 1;
-            int maxYarr = arr.GetUpperBound(1) + 1;
-            if (x == 0)     //at edge of image
-            {
-                return false;
-            }
-            if (y >= maxYarr)
-            {
-                return false;
-            }
-            Console.WriteLine("   VTL: " + (x - 1) + "," + y + "--" + arr[x - 1, y]);
-            if (arr[x - 1, y] > threshold)
-            {
-                return true;
-            }
-            return false;
-        }
+        //private bool ValueToLeftIsAboveThreshold(int[,] arr, int x, int y, int threshold)
+        //{
+        //    int maxXarr = arr.GetUpperBound(0) + 1;
+        //    int maxYarr = arr.GetUpperBound(1) + 1;
+        //    if (x == 0)     //at edge of image
+        //    {
+        //        return false;
+        //    }
+        //    if (y >= maxYarr)
+        //    {
+        //        return false;
+        //    }
+        //    Console.WriteLine("   VTL: " + (x - 1) + "," + y + "--" + arr[x - 1, y]);
+        //    if (arr[x - 1, y] > threshold)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool EveryValueBelowIsBelowThreshold(int[,] arr, int y, int startX, int endX, int threshold)
-        {
-            int maxXarr = arr.GetUpperBound(0) + 1;
-            int maxYarr = arr.GetUpperBound(1) + 1;
-            int minX = startX;
-            int maxX = endX;
+        //private bool EveryValueBelowIsBelowThreshold(int[,] arr, int y, int startX, int endX, int threshold)
+        //{
+        //    int maxXarr = arr.GetUpperBound(0) + 1;
+        //    int maxYarr = arr.GetUpperBound(1) + 1;
+        //    int minX = startX;
+        //    int maxX = endX;
 
-            //Check to make sure y+1 is in bounds
-            if (y >= maxYarr - 1)
-            {
-                return false;
-            }
-            for (int i = startX; i < endX; i++)
-            {
-                Console.WriteLine("   EVB: " + i + "," + (y + 1) + "  -  " + arr[i, y + 1]);
-                if (arr[i, y + 1] > threshold)
-                {
-                    return false;
-                }
-            }
-            return true;      //All values below are above threshold
-        }
+        //    //Check to make sure y+1 is in bounds
+        //    if (y >= maxYarr - 1)
+        //    {
+        //        return false;
+        //    }
+        //    for (int i = startX; i < endX; i++)
+        //    {
+        //        Console.WriteLine("   EVB: " + i + "," + (y + 1) + "  -  " + arr[i, y + 1]);
+        //        if (arr[i, y + 1] > threshold)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;      //All values below are above threshold
+        //}
         private int[,] GetIntArrayFromImage(Bitmap img)
         {
             int h = img.Height;
@@ -450,7 +451,7 @@ namespace AstroImage
             int count = 0;
             foreach (var item in brList.BrList)
             {
-                string message = string.Format("{0}  BR at [({1},{2}),({3},{4})] Volume={5}", count, item.UpperLeftX, item.UpperLeftY, item.BottomRightX, item.BottomRightY, item.Volume);
+                string message = string.Format("{0}  BR at [({1},{2}),({3},{4})] Volume={5}", count, item.OriginalUpperLeftX, item.OriginalUpperLeftY, item.OriginalBottomRightX, item.OriginalBottomRightY, item.Volume);
                 message += string.Format(" Centroid = ({0:G2},{1:G2})", item.CentroidX, item.CentroidY);
                 message += string.Format("  Abs Brightness = {0:G5}  Rel Brightness = {1:G5}", item.AbsoluteBrightness, item.RelativeBrightness);
                 message += Environment.NewLine;
@@ -464,63 +465,23 @@ namespace AstroImage
 
         private void cmdClear_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = "";
+            txtOutput.Text = string.Empty;
         }
 
         private void cmdSaveData_Click(object sender, EventArgs e)
         {
             string path = txtOuputDir.Text;
-            string fullPath = path + "\\BoundingRects.txt";
-            if (File.Exists(fullPath))
-            {
-                File.Delete(fullPath);
-            }
+            string fullPath = path + "\\BoundingRects.csv";
+            sf.SaveAllBrsToCsvFiles(path);
+            sf.SaveBrSummaryCsvFile(fullPath);
 
-            string msg = "";
-            int count = 0;
-            using (StreamWriter writer = new StreamWriter(fullPath))
-            {
-                foreach (var item in BoundingRects.BrList)
-                {
-                    msg = count + ":  " + "[" + item.UpperLeftX + "," + item.UpperLeftY + "]";
-                    msg += "," + "[" + item.BottomRightX + "," + item.BottomRightY + "]";
-                    writer.WriteLine(msg);
-                    count++;
-                }
-            }
-            count = 0;
-            foreach (var item in BoundingRects.BrList)
-            {
-                string fileName = path + "\\BR-" + count + ".csv";
-                SaveSubFrame(fileName, item);
-                count++;
-            }
+           
             txtOutput.Text += Environment.NewLine + "Done Saving Bounding Rectangle Files";
         }
 
         private void SaveSubFrame(string fileName, BoundingRect item)
         {
-            int upperLeftX = item.UpperLeftX;
-            int upperLeftY = item.UpperLeftY;
-            int bottomRightX = item.BottomRightX;
-            int bottomRightY = item.BottomRightY;
-
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
-                for (int y = upperLeftY; y < bottomRightY; y++)
-                {
-                    for (int x = upperLeftX; x < bottomRightX; x++)
-                    {
-                        writer.Write(ImageArray[x, y] + ",");
-                    }
-                    writer.WriteLine();
-                }
-                writer.Flush();
-            }
+            item.SaveToCsv(fileName);
         }
 
         private void cmdHighlightBrs_Click(object sender, EventArgs e)
@@ -533,12 +494,12 @@ namespace AstroImage
             int h;
             int w;
 
-            foreach (var item in BoundingRects.BrList)
+            foreach (var item in sf.BoundingRects.BrList)
             {
-                x = item.UpperLeftX;
-                y = item.UpperLeftY;
-                h = item.BottomRightY - item.UpperLeftY;
-                w = item.BottomRightX - item.UpperLeftX;
+                x = item.OriginalUpperLeftX;
+                y = item.OriginalUpperLeftY;
+                h = item.OriginalBottomRightY - item.OriginalUpperLeftY;
+                w = item.OriginalBottomRightX - item.OriginalUpperLeftX;
                 rect1 = new Rectangle(x, y, w, h);
                 gr.DrawRectangle(pen, rect1);
             }
@@ -564,27 +525,8 @@ namespace AstroImage
             outputFile = txtOuputDir.Text + outputFile;
             Console.WriteLine(outputFile);
 
-            int upperLeftX = 0;
-            int upperLeftY = 0;
-            int bottomRightX = pbImage.Image.Width;
-            int bottomRightY = pbImage.Image.Height;
-            int[,] arr = GetIntArrayFromImage(new Bitmap(pbImage.Image));
-            if (File.Exists(outputFile))
-            {
-                File.Delete(outputFile);
-            }
-            using (StreamWriter writer = new StreamWriter(outputFile))
-            {
-                for (int y = 0; y < bottomRightY - upperLeftY - 1; y++)
-                {
-                    for (int x = 0; x < bottomRightX - upperLeftX - 1; x++)
-                    {
-                        writer.Write(arr[x, y] + ",");
-                    }
-                    writer.WriteLine();
-                }
-                writer.Flush();
-            }
+            sf.SaveImageDataToCsv(outputFile);
+            txtOutput.Text += Environment.NewLine + "Saved: " + outputFile + " (" + sf.ImageHeight + "x" + sf.ImageHeight + " array)" + Environment.NewLine;
         }
     }
 

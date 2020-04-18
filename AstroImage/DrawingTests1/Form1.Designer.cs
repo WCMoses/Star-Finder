@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cmdDrawrects = new System.Windows.Forms.Button();
+            this.txtSourceFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdLoadImage = new System.Windows.Forms.Button();
             this.pbImage = new System.Windows.Forms.PictureBox();
-            this.txtSourceFile = new System.Windows.Forms.TextBox();
-            this.cmdDrawrects = new System.Windows.Forms.Button();
+            this.cmdMisc = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cmdMisc);
             this.splitContainer1.Panel1.Controls.Add(this.cmdDrawrects);
             this.splitContainer1.Panel1.Controls.Add(this.txtSourceFile);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
@@ -61,6 +63,24 @@
             this.splitContainer1.Size = new System.Drawing.Size(1799, 1030);
             this.splitContainer1.SplitterDistance = 647;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // cmdDrawrects
+            // 
+            this.cmdDrawrects.Location = new System.Drawing.Point(163, 232);
+            this.cmdDrawrects.Name = "cmdDrawrects";
+            this.cmdDrawrects.Size = new System.Drawing.Size(271, 71);
+            this.cmdDrawrects.TabIndex = 3;
+            this.cmdDrawrects.Text = "Draw Rects";
+            this.cmdDrawrects.UseVisualStyleBackColor = true;
+            this.cmdDrawrects.Click += new System.EventHandler(this.cmdDrawrects_Click);
+            // 
+            // txtSourceFile
+            // 
+            this.txtSourceFile.Location = new System.Drawing.Point(4, 60);
+            this.txtSourceFile.Name = "txtSourceFile";
+            this.txtSourceFile.Size = new System.Drawing.Size(640, 44);
+            this.txtSourceFile.TabIndex = 2;
+            this.txtSourceFile.Text = "c:\\TestImage1.bmp";
             // 
             // label1
             // 
@@ -91,23 +111,15 @@
             this.pbImage.TabIndex = 0;
             this.pbImage.TabStop = false;
             // 
-            // txtSourceFile
+            // cmdMisc
             // 
-            this.txtSourceFile.Location = new System.Drawing.Point(4, 60);
-            this.txtSourceFile.Name = "txtSourceFile";
-            this.txtSourceFile.Size = new System.Drawing.Size(640, 44);
-            this.txtSourceFile.TabIndex = 2;
-            this.txtSourceFile.Text = "c:\\TestImage1.bmp";
-            // 
-            // cmdDrawrects
-            // 
-            this.cmdDrawrects.Location = new System.Drawing.Point(163, 232);
-            this.cmdDrawrects.Name = "cmdDrawrects";
-            this.cmdDrawrects.Size = new System.Drawing.Size(271, 71);
-            this.cmdDrawrects.TabIndex = 3;
-            this.cmdDrawrects.Text = "Draw Rects";
-            this.cmdDrawrects.UseVisualStyleBackColor = true;
-            this.cmdDrawrects.Click += new System.EventHandler(this.cmdDrawrects_Click);
+            this.cmdMisc.Location = new System.Drawing.Point(393, 643);
+            this.cmdMisc.Name = "cmdMisc";
+            this.cmdMisc.Size = new System.Drawing.Size(171, 69);
+            this.cmdMisc.TabIndex = 4;
+            this.cmdMisc.Text = "button1";
+            this.cmdMisc.UseVisualStyleBackColor = true;
+            this.cmdMisc.Click += new System.EventHandler(this.cmdMisc_Click);
             // 
             // Form1
             // 
@@ -135,6 +147,7 @@
         private System.Windows.Forms.Button cmdLoadImage;
         private System.Windows.Forms.TextBox txtSourceFile;
         private System.Windows.Forms.Button cmdDrawrects;
+        private System.Windows.Forms.Button cmdMisc;
     }
 }
 

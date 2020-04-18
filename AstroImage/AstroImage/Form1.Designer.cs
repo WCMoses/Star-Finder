@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lbl2StDev = new System.Windows.Forms.Label();
             this.cmdOutputDirPicker = new System.Windows.Forms.Button();
             this.lblStDev = new System.Windows.Forms.Label();
             this.lblMean = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.rbAbsoluteBrightness = new System.Windows.Forms.RadioButton();
             this.rbSize = new System.Windows.Forms.RadioButton();
             this.txtOutput = new System.Windows.Forms.TextBox();
-            this.lbl2StDev = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -159,6 +159,16 @@
             this.splitContainer2.SplitterWidth = 15;
             this.splitContainer2.TabIndex = 0;
             // 
+            // lbl2StDev
+            // 
+            this.lbl2StDev.AutoSize = true;
+            this.lbl2StDev.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl2StDev.Location = new System.Drawing.Point(997, 215);
+            this.lbl2StDev.Name = "lbl2StDev";
+            this.lbl2StDev.Size = new System.Drawing.Size(192, 46);
+            this.lbl2StDev.TabIndex = 22;
+            this.lbl2StDev.Text = "2X SD+M";
+            // 
             // cmdOutputDirPicker
             // 
             this.cmdOutputDirPicker.Location = new System.Drawing.Point(827, 249);
@@ -193,7 +203,7 @@
             this.cmdSaveCsv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSaveCsv.Location = new System.Drawing.Point(745, 355);
             this.cmdSaveCsv.Name = "cmdSaveCsv";
-            this.cmdSaveCsv.Size = new System.Drawing.Size(229, 89);
+            this.cmdSaveCsv.Size = new System.Drawing.Size(229, 99);
             this.cmdSaveCsv.TabIndex = 18;
             this.cmdSaveCsv.Text = "Save CSV";
             this.cmdSaveCsv.UseVisualStyleBackColor = true;
@@ -469,16 +479,6 @@
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtOutput.Size = new System.Drawing.Size(1872, 480);
             this.txtOutput.TabIndex = 0;
-            // 
-            // lbl2StDev
-            // 
-            this.lbl2StDev.AutoSize = true;
-            this.lbl2StDev.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl2StDev.Location = new System.Drawing.Point(997, 215);
-            this.lbl2StDev.Name = "lbl2StDev";
-            this.lbl2StDev.Size = new System.Drawing.Size(192, 46);
-            this.lbl2StDev.TabIndex = 22;
-            this.lbl2StDev.Text = "2X SD+M";
             // 
             // Form1
             // 
