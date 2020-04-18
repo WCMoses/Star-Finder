@@ -494,6 +494,10 @@ namespace AstroImage
             int h;
             int w;
 
+            if (sf.BoundingRects.BrList.Count == 0)
+            {
+                txtOutput.Text += Environment.NewLine + "No bounding rects in list";
+            }
             foreach (var item in sf.BoundingRects.BrList)
             {
                 x = item.OriginalUpperLeftX;

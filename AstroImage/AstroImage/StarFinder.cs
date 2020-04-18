@@ -72,13 +72,13 @@ namespace AstroImage
             int threshold = Threshold;
             int minSize = MinSize;
             BoundingRectList result = new BoundingRectList();
-            int xmax = arr.GetUpperBound(0) + 1;
-            int ymax = arr.GetUpperBound(1) + 1;
+            int xmax = arr.GetUpperBound(0) ;
+            int ymax = arr.GetUpperBound(1) ;
 
             //Top-level loop
-            for (int y = 0; y < ymax; y++)
+            for (int y = 0; y < ymax+1; y++)
             {
-                for (int x = 0; x < xmax; x++)
+                for (int x = 0; x < xmax+1; x++)
                 {
                     Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
                     if (result.ContainsPoint(x, y)) //Is point already in a blob

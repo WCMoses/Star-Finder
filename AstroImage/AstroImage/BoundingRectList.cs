@@ -84,11 +84,11 @@ namespace AstroImage
             {
                 if (item.ContainsPoint(x, y))
                 {
-                    // Console.Write("   ContainsPoint: " + x + "," + y + "--" + "true");
+                    Console.WriteLine("   ContainsPoint: " + x + "," + y + "--" + "true");
                     return true;
                 }
             }
-            //Console.Write("   ContainsPointt: " + x + "," + y + "--" + "false");
+            Console.WriteLine("   ContainsPoint: " + x + "," + y + "--" + "false");
             return false;
         }
 
@@ -101,9 +101,9 @@ namespace AstroImage
                 // Hack - embed in algorith better.  Should not need??
                 //
 
-                for (int x = item.OriginalUpperLeftX; x < item.OriginalBottomRightX; x++)
+                for (int x = item.OriginalUpperLeftX; x < item.OriginalBottomRightX+1; x++)
                 {
-                    for (int y = 0; item.OriginalUpperLeftY < item.OriginalBottomRightY; y++)
+                    for (int y = 0; item.OriginalUpperLeftY < item.OriginalBottomRightY+1; y++)
                     {
                         if (ContainsPoint(x, y))
                         {

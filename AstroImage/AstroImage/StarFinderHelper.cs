@@ -17,9 +17,9 @@ namespace AstroImage
             int xmax = arr.GetUpperBound(0);
             int ymax = arr.GetUpperBound(1);
             double result = 0;
-            for (int y = 0; y < ymax; y++)
+            for (int y = 0; y < ymax+1; y++)
             {
-                for (int x = 0; x <xmax - 1; x++)
+                for (int x = 0; x <xmax +1; x++)
                 {
                     result += arr[x, y];
                 }
@@ -28,8 +28,8 @@ namespace AstroImage
         }
         public double CalculateRelativeBrightness(int[,] arr)
         {
-            int xmax = arr.GetUpperBound(0);
-            int ymax = arr.GetUpperBound(1);
+            int xmax = arr.GetUpperBound(0)+1;
+            int ymax = arr.GetUpperBound(1)+1;
             int volume = xmax * ymax;
             double result = 0;
             result = CalculateAbsoluteBrightness(arr) / volume;
