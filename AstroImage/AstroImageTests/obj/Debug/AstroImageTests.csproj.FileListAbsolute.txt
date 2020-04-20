@@ -1,0 +1,17 @@
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\AstroImageTests.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\AstroImageTests.pdb
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\AstroImage.exe
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\AstroImage.pdb
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\AstroImage.exe.config
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\obj\Debug\AstroImageTests.csprojAssemblyReference.cache
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\obj\Debug\AstroImageTests.csproj.CoreCompileInputs.cache
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\obj\Debug\AstroImageTests.csproj.CopyComplete
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\obj\Debug\AstroImageTests.dll
+C:\Repos\Star-Finder\AstroImage\AstroImageTests\obj\Debug\AstroImageTests.pdb

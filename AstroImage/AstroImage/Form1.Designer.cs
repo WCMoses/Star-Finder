@@ -487,7 +487,7 @@
             this.ClientSize = new System.Drawing.Size(1872, 1315);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "StarFinder V0.0.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.ActiveForm_ResizeEnd);
             this.splitContainer1.Panel1.ResumeLayout(false);

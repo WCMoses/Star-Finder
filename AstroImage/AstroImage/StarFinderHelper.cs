@@ -32,7 +32,8 @@ namespace AstroImage
             int ymax = arr.GetUpperBound(1)+1;
             int volume = xmax * ymax;
             double result = 0;
-            result = CalculateAbsoluteBrightness(arr) / volume;
+            double abs = CalculateAbsoluteBrightness(arr);
+            result =  abs/ volume;
             return result;
         }
 

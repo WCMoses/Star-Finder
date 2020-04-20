@@ -8,3 +8,13 @@ C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.GenerateResou
 C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.CoreCompileInputs.cache
 C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.exe
 C:\testDev\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.pdb
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.exe.config
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.exe
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\bin\Debug\DrawingTests1.pdb
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csprojAssemblyReference.cache
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.Form1.resources
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.Properties.Resources.resources
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.GenerateResource.cache
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.csproj.CoreCompileInputs.cache
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.exe
+C:\Repos\Star-Finder\AstroImage\DrawingTests1\obj\Debug\DrawingTests1.pdb
