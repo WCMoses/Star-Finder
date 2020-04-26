@@ -8,8 +8,9 @@ A simple algorithm to find stars in real world astrophotoraphy images
 4. Sorting
 5. Saving bounding rects to csv files for excel
 6. Generation of summary csv file
+7.  A primitive GUI for playing around
   
-**Usage:** 
+**Programming Usage:** 
 1. The StarFinder class is the main class you will interact with.  Create one by instantiating it with a byte array, Image, or Bitmap.  It will convert an image or bitmap to an 8b bitmap.  
 
 2. Set the MinimumSize and the Theshold value.  The MinimumSize is the minimum length of any side of a bounding rectangle and the Threshold value is the minimum value that will be detected as the edge of a star.  
