@@ -44,7 +44,7 @@ namespace AstroImage
         {
             BoundingRects = new BoundingRectList();
             ImageData = imageData;
-            
+
         }
 
         public StarFinder(Image image)
@@ -72,13 +72,13 @@ namespace AstroImage
             int threshold = Threshold;
             int minSize = MinSize;
             BoundingRectList result = new BoundingRectList();
-            int xmax = arr.GetUpperBound(0) ;
-            int ymax = arr.GetUpperBound(1) ;
+            int xmax = arr.GetUpperBound(0);
+            int ymax = arr.GetUpperBound(1);
 
             //Top-level loop
-            for (int y = 0; y < ymax+1; y++)
+            for (int y = 0; y < ymax + 1; y++)
             {
-                for (int x = 0; x < xmax+1; x++)
+                for (int x = 0; x < xmax + 1; x++)
                 {
                     Console.WriteLine("Evaluating " + x + ":" + y + "  Value: " + arr[x, y]);
                     if (result.ContainsPoint(x, y)) //Is point already in a blob
@@ -105,7 +105,7 @@ namespace AstroImage
 
                             //if (!result.BrIntersectsAnotherBr(rect))
                             //{
-                                result.BrList.Add(rect);
+                            result.BrList.Add(rect);
                             Console.WriteLine(" ---->  BR added");
                             //}
                             //else
@@ -282,7 +282,30 @@ namespace AstroImage
             return result;
         }
 
+        //IMAGE PROCESSING FUNCTIONS
+        public int[,] SubtractBackground()
+        {
+            int mean = (int)ImageDataMean;
+            int[,] result = new int[ImageHeight, ImageWidth];
+            Bitmap resultBM = new Bitmap(ImageWidth, ImageHeight);
+            for (int h = 0; h < ImageHeight + 1; h++)
+            {
+                for (int w = 0; w < ImageWidth + 1; w++)
+                {
+                    if (ImageData[h, w] > mean)
+                    {
+                        result[h, w] = ImageData[h, w] - mean;
 
+                    }
+                    else
+                    {
+                        result[h, w] = 0;
+                    }
+                }
+
+            }
+            return result;
+        }
 
         //      MISC FUNCTIONS
         private int[,] GetSubArray(int[,] arr, int xMin, int yMin, int xMax, int yMax)
@@ -341,6 +364,6 @@ namespace AstroImage
         {
             helper.SaveToCsv(ImageData, fullPath);
         }
-        
+
     }
 }

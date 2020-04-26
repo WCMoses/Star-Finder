@@ -532,6 +532,43 @@ namespace AstroImage
             sf.SaveImageDataToCsv(outputFile);
             txtOutput.Text += Environment.NewLine + "Saved: " + outputFile + " (" + sf.ImageHeight + "x" + sf.ImageHeight + " array)" + Environment.NewLine;
         }
+
+        private void cmdBackgroundSubtraction_Click(object sender, EventArgs e)
+        {
+            Bitmap bm = (Bitmap)pbImage.Image;
+            Bitmap bmNew = new Bitmap(bm.Width, bm.Height, PixelFormat.Format8bppIndexed);
+            bmNew = bm;
+            int red, blue, green;
+            Color pixelColor;
+            double bg = sf.ImageDataMean;
+            int sub = (int)Math.Round(bg / 3);
+            Color greyColor;
+            for (int h = 0; h < bm.Height; h++)
+            {
+                for (int w = 0; w <bm.Width; w++)
+                {
+                    red = 0;
+                    blue = 0;
+                    green = 0;
+                    pixelColor = bm.GetPixel(w,h);
+                    if (pixelColor.R-sub>0)
+                    {
+                        red = pixelColor.R - sub;
+                    }
+                    if (pixelColor.B - sub > 0)
+                    {
+                        blue = pixelColor.B - sub;
+                    }
+                    if (pixelColor.G - sub > 0)
+                    {
+                        green = pixelColor.G - sub;
+                    }
+                    greyColor = Color.FromArgb(red, green, blue);
+                    bmNew.SetPixel(w, h, greyColor);
+                }
+            }
+            pbImage.Image = bmNew;
+        }
     }
 
 }

@@ -63,6 +63,7 @@
             this.rbAbsoluteBrightness = new System.Windows.Forms.RadioButton();
             this.rbSize = new System.Windows.Forms.RadioButton();
             this.txtOutput = new System.Windows.Forms.TextBox();
+            this.cmdBackgroundSubtraction = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -128,6 +129,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.cmdBackgroundSubtraction);
             this.splitContainer2.Panel1.Controls.Add(this.lbl2StDev);
             this.splitContainer2.Panel1.Controls.Add(this.cmdOutputDirPicker);
             this.splitContainer2.Panel1.Controls.Add(this.lblStDev);
@@ -480,6 +482,17 @@
             this.txtOutput.Size = new System.Drawing.Size(1872, 480);
             this.txtOutput.TabIndex = 0;
             // 
+            // cmdBackgroundSubtraction
+            // 
+            this.cmdBackgroundSubtraction.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdBackgroundSubtraction.Location = new System.Drawing.Point(314, 371);
+            this.cmdBackgroundSubtraction.Name = "cmdBackgroundSubtraction";
+            this.cmdBackgroundSubtraction.Size = new System.Drawing.Size(190, 73);
+            this.cmdBackgroundSubtraction.TabIndex = 23;
+            this.cmdBackgroundSubtraction.Text = "Bg Sub";
+            this.cmdBackgroundSubtraction.UseVisualStyleBackColor = true;
+            this.cmdBackgroundSubtraction.Click += new System.EventHandler(this.cmdBackgroundSubtraction_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
@@ -547,6 +560,7 @@
         private System.Windows.Forms.Label lblStDev;
         private System.Windows.Forms.Label lblMean;
         private System.Windows.Forms.Label lbl2StDev;
+        private System.Windows.Forms.Button cmdBackgroundSubtraction;
     }
 }
 

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstroImage", "AstroImage\As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingTests1", "DrawingTests1\DrawingTests1.csproj", "{54A13B19-67E3-4E60-947E-2BF7F7B98347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Architecture Diagrams", "Architecture Diagrams\Architecture Diagrams.csproj", "{D81B83D6-C0CF-46AD-9B73-62AAB8C7015A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstroImageTests", "AstroImageTests\AstroImageTests.csproj", "{355F8753-4153-4CC8-A6E4-240355E5503F}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{54A13B19-67E3-4E60-947E-2BF7F7B98347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A13B19-67E3-4E60-947E-2BF7F7B98347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A13B19-67E3-4E60-947E-2BF7F7B98347}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D81B83D6-C0CF-46AD-9B73-62AAB8C7015A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D81B83D6-C0CF-46AD-9B73-62AAB8C7015A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D81B83D6-C0CF-46AD-9B73-62AAB8C7015A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D81B83D6-C0CF-46AD-9B73-62AAB8C7015A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{355F8753-4153-4CC8-A6E4-240355E5503F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{355F8753-4153-4CC8-A6E4-240355E5503F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{355F8753-4153-4CC8-A6E4-240355E5503F}.Release|Any CPU.ActiveCfg = Release|Any CPU
